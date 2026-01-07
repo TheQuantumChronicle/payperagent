@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { cryptoCache } from './dbCache';
 
-const RUBY_API_URL = 'https://api.ruby.exchange/v1';
+// Ruby.Exchange API - Real blockchain data from SKALE Network
+// Documentation: https://ruby.exchange/api-docs (if available)
+const RUBY_API_URL = process.env.RUBY_API_URL || 'https://api.ruby.exchange/v1';
 
 interface TokenPriceParams {
   token: string;
