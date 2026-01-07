@@ -54,24 +54,8 @@ export async function getGameStats(params: GameStatsParams): Promise<any> {
     await cryptoCache.set(cacheKey, result, 300);
     return result;
   } catch (error: any) {
-    console.error
-    
-    const mockData = {
-      game,
-      players: Math.floor(10000 + Math.random() * 90000),
-      activeUsers24h: Math.floor(5000 + Math.random() * 45000),
-      totalTransactions: Math.floor(1000000 + Math.random() * 9000000),
-      volume24h: Math.floor(50000 + Math.random() * 450000),
-      tokenPrice: parseFloat((0.01 + Math.random() * 0.99).toFixed(4)),
-      nftFloorPrice: parseFloat((0.1 + Math.random() * 9.9).toFixed(2)),
-      averageSessionTime: Math.floor(15 + Math.random() * 45) + ' minutes',
-      lastUpdated: new Date().toISOString(),
-      source: `${game} (Mock)`,
-      note: 'Using mock data - integrate with actual game API'
-    };
-    
-    await cryptoCache.set(cacheKey, mockData, 300);
-    return mockData;
+    console.error(`${game} API error:`, error.message);
+    throw new Error(`Failed to fetch game stats for ${game}: ${error.message}`);
   }
 }
 
@@ -117,32 +101,8 @@ export async function getNFTPrices(params: NFTPriceParams): Promise<any> {
     await cryptoCache.set(cacheKey, result, 300);
     return result;
   } catch (error: any) {
-    console.error
-    
-    const mockCollections = collection ? [collection] : ['Weapons', 'Characters', 'Land', 'Items'];
-    const mockData = {
-      game,
-      collection: collection || 'all',
-      collections: mockCollections.map(col => ({
-        name: col,
-        floorPrice: parseFloat((0.1 + Math.random() * 9.9).toFixed(2)),
-        averagePrice: parseFloat((0.5 + Math.random() * 19.5).toFixed(2)),
-        volume24h: Math.floor(1000 + Math.random() * 49000),
-        sales24h: Math.floor(10 + Math.random() * 490),
-        totalSupply: Math.floor(1000 + Math.random() * 9000)
-      })),
-      topSales: [
-        { tokenId: '#1234', price: 15.5, buyer: '0x123...', timestamp: new Date().toISOString() },
-        { tokenId: '#5678', price: 12.3, buyer: '0x456...', timestamp: new Date().toISOString() },
-        { tokenId: '#9012', price: 10.8, buyer: '0x789...', timestamp: new Date().toISOString() }
-      ],
-      lastUpdated: new Date().toISOString(),
-      source: `${game} NFT (Mock)`,
-      note: 'Using mock data - integrate with actual game NFT API'
-    };
-    
-    await cryptoCache.set(cacheKey, mockData, 300);
-    return mockData;
+    console.error(`${game} NFT API error:`, error.message);
+    throw new Error(`Failed to fetch NFT prices for ${game}: ${error.message}`);
   }
 }
 
@@ -183,30 +143,8 @@ export async function getLeaderboard(params: LeaderboardParams): Promise<any> {
     await cryptoCache.set(cacheKey, result, 600);
     return result;
   } catch (error: any) {
-    console.error
-    
-    const mockLeaderboard = Array.from({ length: limit }, (_, i) => ({
-      rank: i + 1,
-      player: `Player${i + 1}`,
-      address: `0x${Math.random().toString(16).substr(2, 40)}`,
-      score: Math.floor(100000 - i * 5000 - Math.random() * 4000),
-      wins: Math.floor(500 - i * 20 - Math.random() * 15),
-      losses: Math.floor(100 + i * 5 + Math.random() * 10),
-      earnings: parseFloat((1000 - i * 50 - Math.random() * 40).toFixed(2)),
-      level: Math.floor(50 - i * 2)
-    }));
-    
-    const mockData = {
-      game,
-      leaderboard: mockLeaderboard,
-      totalPlayers: 50000,
-      lastUpdated: new Date().toISOString(),
-      source: `${game} (Mock)`,
-      note: 'Using mock data - integrate with actual game API'
-    };
-    
-    await cryptoCache.set(cacheKey, mockData, 600);
-    return mockData;
+    console.error(`${game} leaderboard API error:`, error.message);
+    throw new Error(`Failed to fetch leaderboard for ${game}: ${error.message}`);
   }
 }
 
@@ -230,22 +168,8 @@ export async function getGameTokenPrice(game: string): Promise<any> {
       throw new Error(`Token for game ${game} not found`);
     }
 
-    // Could integrate with Ruby.Exchange or CoinGecko here
-    const mockData = {
-      game,
-      token: tokenSymbol,
-      price: parseFloat((0.01 + Math.random() * 0.99).toFixed(4)),
-      priceChange24h: parseFloat(((Math.random() - 0.5) * 20).toFixed(2)),
-      volume24h: Math.floor(50000 + Math.random() * 450000),
-      marketCap: Math.floor(1000000 + Math.random() * 9000000),
-      circulatingSupply: Math.floor(10000000 + Math.random() * 90000000),
-      lastUpdated: new Date().toISOString(),
-      source: 'Gaming Token Price (Mock)',
-      note: 'Using mock data - integrate with DEX/CoinGecko API'
-    };
-    
-    await cryptoCache.set(cacheKey, mockData, 60);
-    return mockData;
+    // Integrate with Ruby.Exchange or CoinGecko for real token prices
+    throw new Error(`Token price API not configured for ${game}. Please integrate with Ruby.Exchange or CoinGecko.`);
   } catch (error: any) {
     throw new Error(`Failed to get token price for ${game}: ${error.message}`);
   }
