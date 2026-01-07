@@ -17,6 +17,7 @@ import { analyticsMiddleware } from './middleware/analytics';
 import { rateLimitHeaders } from './middleware/responseEnhancer';
 import { requestLogger } from './middleware/requestLogger';
 import { corsOptions } from './middleware/cors';
+import { createAgentKitMiddleware } from './integrations/agentkit';
 import { initializeDatabase, checkDatabaseConnection } from './database/init';
 import { startCleanupJobs } from './jobs/cleanup';
 import { RealtimeServer } from './websocket/server';
@@ -33,6 +34,12 @@ app.use(express.json());
 app.use(requestLogger);
 app.use(rateLimitHeaders);
 app.use(analyticsMiddleware);
+
+// AgentKit compatibility middleware
+app.use(createAgentKitMiddleware({
+  walletAddress: process.env.FACILITATOR_ADDRESS || '',
+  network: 'skale',
+}));
 
 app.use('/health', healthRouter);
 app.use('/api', apiLimiter, createAgentLimiter(), gatewayRouter);

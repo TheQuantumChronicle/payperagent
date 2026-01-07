@@ -8,6 +8,9 @@ import Explanation from './components/Explanation';
 import LiveData from './components/LiveData';
 import LiveCrypto from './components/LiveCrypto';
 import SystemStatus from './components/SystemStatus';
+import Analytics from './components/Analytics';
+import Leaderboard from './components/Leaderboard';
+import SkaleEcosystem from './components/SkaleEcosystem';
 import ApiExplorer from './components/ApiExplorer';
 import PricingCalculator from './components/PricingCalculator';
 import UseCases from './components/UseCases';
@@ -39,6 +42,9 @@ function App() {
             <div className="py-20 md:py-32 px-4 max-w-7xl mx-auto">
               <SystemStatus />
             </div>
+            <Analytics />
+            <Leaderboard />
+            <SkaleEcosystem />
             <div id="apis">
               <ApiExplorer />
             </div>
