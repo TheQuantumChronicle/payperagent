@@ -1,0 +1,31 @@
+{
+  "name": "@payperagent/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for PayPerAgent API Gateway",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "payperagent",
+    "skale",
+    "x402",
+    "ai-agents",
+    "api-gateway"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "ethers": "^6.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.11"
+  }
+}
