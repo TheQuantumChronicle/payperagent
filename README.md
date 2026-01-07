@@ -51,14 +51,18 @@ Building the infrastructure for the Internet of Agents - where AI agents can aut
 - ✅ **Multi-Token Support** - Pay with USDC, USDT, SKL, or WETH
 - ✅ **Batch Discounts** - Save up to 30% on bulk API calls
 - ✅ **Agent Reputation** - Earn up to 20% loyalty discounts (Bronze→Diamond tiers)
-- ✅ **Performance Monitoring** - Real-time metrics & analytics
+- ✅ **Circuit Breakers** - Automatic failure detection & recovery for 8 external services
+- ✅ **Performance Monitoring** - Real-time metrics, P50/P95/P99 latency tracking
+- ✅ **WebSocket Support** - Live crypto prices & system metrics updates
 - ✅ **PostgreSQL** - Persistent caching & analytics
 - ✅ **Rate Limiting** - 100/min, 1000/day per agent
 - ✅ **Beautiful Console** - Color-coded logging with ASCII art
-- ✅ **Enhanced Error Handling** - Comprehensive error classes & logging
-- ✅ **Input Validation** - Helpful error messages
+- ✅ **Enhanced Error Handling** - Custom error classes with proper status codes
+- ✅ **Request Validation** - Schema-based input validation
 - ✅ **Response Compression** - Gzip for performance
-- ✅ **Health Monitoring** - Detailed system metrics
+- ✅ **Health Monitoring** - Circuit breaker status, memory usage, dependency checks
+- ✅ **API Documentation** - Interactive Swagger UI at `/docs`
+- ✅ **System Management** - Circuit breaker controls, performance stats, metrics
 - ✅ **SKALE Ecosystem** - First gateway with native SKALE integrations
 
 ## 🛠️ Tech Stack
@@ -67,7 +71,7 @@ Building the infrastructure for the Internet of Agents - where AI agents can aut
 - **Blockchain:** SKALE Network (Nebula Testnet - Chain ID: 37084624)
 - **Payments:** x402 protocol via @faremeter/middleware
 - **Database:** PostgreSQL with connection pooling
-- **Caching:** Dual-layer (Memory + PostgreSQL)
+- **Caching:** Dual-layer (Memory + PostgreSQL) with intelligent TTL optimization
 - **APIs:** 29 endpoints across 16 services
   - 3 Original APIs
   - 11 Free APIs (no auth)
@@ -81,15 +85,49 @@ Building the infrastructure for the Internet of Agents - where AI agents can aut
   - Platinum: 15% discount (2000+ requests, 95%+ success)
   - Diamond: 20% discount (10000+ requests, 98%+ success)
 - **Multi-Token Payments:** USDC, USDT, SKL, WETH with automatic conversion
-- **Performance Tracking:** Sub-200ms average response time with detailed metrics
+- **Resilience:** Circuit breaker pattern protecting 8 external services
+- **Real-time:** WebSocket server for live updates (crypto prices, system metrics)
+- **Monitoring:** Performance metrics, P50/P95/P99 latency, error rates
+- **Documentation:** Interactive Swagger/OpenAPI UI
+- **Performance Tracking:** Sub-10ms average response time with detailed metrics
 - **SDKs:** TypeScript & Python clients (coming soon)
+
+## 🚀 New Backend Features
+
+### System Management Endpoints
+- **GET /system/circuit-breakers** - View status of all circuit breakers
+- **POST /system/circuit-breakers/:name/reset** - Reset a specific circuit breaker
+- **GET /system/metrics** - System performance metrics (CPU, memory, uptime)
+- **GET /system/performance** - API performance statistics (P50/P95/P99, error rates)
+- **GET /system/environment** - Environment configuration and feature flags
+
+### Real-time Updates
+- **WebSocket /ws** - Real-time crypto prices and system metrics
+  - Subscribe to channels: `crypto`, `system`, `events`
+  - Live price updates every 5 seconds
+  - System metrics every 10 seconds
+
+### Enhanced Monitoring
+- **Circuit Breakers**: Automatic failure detection for all external APIs
+- **Performance Tracking**: Request latency, throughput, error rates
+- **Health Checks**: Comprehensive dependency monitoring
+- **API Documentation**: Interactive Swagger UI at `/docs`
 
 ## Project Structure
 
 ```
 payperagent/
 ├── backend/           # API Gateway server
-├── frontend/          # Marketplace UI
+│   ├── src/
+│   │   ├── routes/           # API endpoints
+│   │   ├── services/         # Business logic
+│   │   ├── middleware/       # Request processing
+│   │   ├── utils/            # Utilities (errors, circuit breakers, validation)
+│   │   ├── websocket/        # WebSocket server
+│   │   └── database/         # PostgreSQL integration
+│   ├── test-backend.sh       # Automated test suite
+│   └── test-websocket.js     # WebSocket tests
+├── frontend/          # Marketplace UI (React + Vite)
 ├── contracts/         # Smart contracts (optional)
 ├── docs/             # Documentation
 └── examples/         # Sample AI agents
@@ -108,15 +146,23 @@ See [docs/QUICKSTART.md](docs/QUICKSTART.md) for detailed setup instructions.
 - ✅ Batch payment system with volume discounts (10-30% off)
 - ✅ Agent reputation system with 5 loyalty tiers (up to 20% off)
 - ✅ Multi-token payment support (USDC, USDT, SKL, WETH)
-- ✅ Performance monitoring middleware with real-time metrics
+- ✅ Circuit breaker pattern for external API resilience
+- ✅ Performance monitoring with P50/P95/P99 latency tracking
+- ✅ WebSocket server for real-time updates (crypto, system metrics)
 - ✅ Enhanced error handling with custom error classes
+- ✅ Request validation with schema-based validation
+- ✅ System management endpoints (circuit breakers, metrics, performance)
+- ✅ Interactive API documentation (Swagger UI)
+- ✅ Enhanced health checks with dependency monitoring
+- ✅ Intelligent cache optimization with service-specific TTLs
 - ✅ PostgreSQL caching & analytics
 - ✅ Comprehensive testing (100% success rate)
+- ✅ Automated test suite (backend + WebSocket)
 
 ### 🔄 In Progress
 - 🔄 TypeScript & Python SDKs
 - 🔄 Production deployment
-- 🔄 WebSocket support for real-time updates
+- 🔄 Frontend marketplace UI enhancements
 - 🔄 API key management system
 
 ### 📋 Upcoming

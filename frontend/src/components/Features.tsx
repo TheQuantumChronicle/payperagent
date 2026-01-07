@@ -4,13 +4,13 @@ import { Zap, Shield, Coins, Layers, TrendingUp, Users } from 'lucide-react';
 const features = [
   {
     icon: <Shield className="w-8 h-8" />,
-    title: 'Zero-Knowledge Payments',
-    description: 'No registration. No KYC. No tracking. Pure anonymity.',
+    title: 'Circuit Breakers',
+    description: 'Automatic failure detection & recovery. 8 external services protected.',
   },
   {
     icon: <Zap className="w-8 h-8" />,
-    title: 'Instant Settlement',
-    description: 'Microtransactions settle in milliseconds on SKALE.',
+    title: 'Real-time Updates',
+    description: 'WebSocket support for live crypto prices & system metrics.',
   },
   {
     icon: <Coins className="w-8 h-8" />,
@@ -24,13 +24,13 @@ const features = [
   },
   {
     icon: <TrendingUp className="w-8 h-8" />,
-    title: 'Reputation System',
-    description: 'Earn loyalty rewards. Up to 20% off for power users.',
+    title: 'Performance Monitoring',
+    description: 'P50/P95/P99 latency tracking. Sub-10ms average response time.',
   },
   {
     icon: <Users className="w-8 h-8" />,
-    title: 'Agent-First Design',
-    description: 'Built for AI agents. Simple integration. Powerful results.',
+    title: 'Enhanced Reliability',
+    description: 'Custom error handling, request validation, comprehensive health checks.',
   },
 ];
 
