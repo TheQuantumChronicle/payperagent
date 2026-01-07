@@ -22,13 +22,16 @@ export async function searchWikipedia(params: WikipediaSearchParams): Promise<an
   }
 
   try {
-    const response = await axios.get(WIKIPEDIA_API_URL, {
+    const response = await axios.get(`${WIKIPEDIA_API_URL}/w/api.php`, {
       params: {
         action: 'opensearch',
         search: query,
         limit,
         namespace: 0,
         format: 'json',
+      },
+      headers: {
+        'User-Agent': 'PayPerAgent/1.0 (https://github.com/TheQuantumChronicle/payperagent) Node.js/Axios'
       },
       timeout: 10000,
     });

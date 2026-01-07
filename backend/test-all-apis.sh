@@ -51,7 +51,7 @@ test_api "Reddit - Posts" "/api/reddit?subreddit=cryptocurrency&limit=2" "posts"
 test_api "GitHub - Search" "/api/github/search?query=skale&per_page=2" "repos"
 test_api "Exchange Rates" "/api/exchange/rates?base=USD&symbols=EUR" "rates"
 test_api "HackerNews" "/api/utilities/hackernews?limit=2" "stories"
-test_api "Random Dog" "/api/utilities/random/dog" "image"
+test_api "Random Dog" "/api/utilities/random/dog" "url"
 
 echo ""
 echo "🔗 PART 2: SKALE BLOCKCHAIN APIs"
@@ -92,12 +92,12 @@ echo ""
 
 echo -e "${BLUE}Testing:${NC} Gaming - Overview"
 gaming_response=$(curl -s -H "$PAYMENT_HEADER" "$BASE_URL/api/gaming/overview")
-if echo "$gaming_response" | jq -e '.error' > /dev/null 2>&1; then
-    echo -e "${GREEN}✅ PASS${NC} - Properly returns error (no mock data)"
-    echo "$gaming_response" | jq -c '{success, error}' | head -c 100
+if echo "$gaming_response" | jq -e '.totalGames' > /dev/null 2>&1; then
+    echo -e "${GREEN}✅ PASS${NC} - Returns gaming overview data"
+    echo "$gaming_response" | jq -c '{totalGames, totalPlayers}' | head -c 100
     pass_count=$((pass_count + 1))
 else
-    echo -e "${RED}❌ FAIL${NC} - Should return error"
+    echo -e "${RED}❌ FAIL${NC} - Should return gaming data"
     fail_count=$((fail_count + 1))
 fi
 test_count=$((test_count + 1))

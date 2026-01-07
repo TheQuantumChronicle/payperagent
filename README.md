@@ -132,9 +132,11 @@ MIT
 ## Documentation
 
 - [Quick Start Guide](docs/QUICKSTART.md)
-- [API Endpoints Reference](API_ENDPOINTS.md) - Complete API documentation
-- [SKALE Integrations](SKALE_INTEGRATIONS.md) - Ruby.Exchange, Chirper.ai, Gaming APIs
+- [API Endpoints Reference](docs/API_ENDPOINTS.md) - Complete API documentation
+- [SKALE Integrations](docs/SKALE_INTEGRATIONS.md) - Ruby.Exchange, Chirper.ai, Gaming APIs
 - [Batch API Guide](docs/BATCH_API.md) - Volume discounts & bulk calls
+- [SKALE Blockchain Integration](docs/SKALE_BLOCKCHAIN_INTEGRATION.md) - Web3 integration details
+- [Test Results](docs/COMPREHENSIVE_TEST_RESULTS.md) - Latest testing results
 - [Integration Guide](docs/INTEGRATION.md)
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [Project Status](docs/STATUS.md)
