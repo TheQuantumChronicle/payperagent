@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { cryptoCache } from './dbCache';
+import { circuitBreakers } from '../utils/circuitBreaker';
+import { ExternalAPIError } from '../utils/errors';
 
 const PERPLEXITY_API_URL = 'https://api.perplexity.ai/chat/completions';
 
@@ -37,7 +39,7 @@ export async function searchPerplexity(params: PerplexityRequest): Promise<any> 
       length: process.env.PERPLEXITY_API_KEY?.length,
       trimmed: PERPLEXITY_API_KEY?.length
     });
-    throw new Error('Perplexity API key not configured');
+    throw new ExternalAPIError('Perplexity API key not configured', 'Perplexity');
   }
 
   // Check cache first
@@ -48,7 +50,8 @@ export async function searchPerplexity(params: PerplexityRequest): Promise<any> 
   }
 
   try {
-    const response = await axios.post<PerplexityResponse>(
+    const response = await circuitBreakers.perplexity.execute(() =>
+      axios.post<PerplexityResponse>(
       PERPLEXITY_API_URL,
       {
         model,
@@ -75,13 +78,14 @@ export async function searchPerplexity(params: PerplexityRequest): Promise<any> 
         presence_penalty: 0,
         frequency_penalty: 1,
       },
-      {
-        headers: {
-          'Authorization': `Bearer ${PERPLEXITY_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        timeout: 30000,
-      }
+        {
+          headers: {
+            'Authorization': `Bearer ${PERPLEXITY_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          timeout: 30000,
+        }
+      )
     );
 
     const result = {
@@ -97,8 +101,11 @@ export async function searchPerplexity(params: PerplexityRequest): Promise<any> 
     return result;
   } catch (error: any) {
     if (error.response) {
-      throw new Error(`Perplexity API error: ${error.response.data.error?.message || error.response.statusText}`);
+      throw new ExternalAPIError(
+        `Perplexity API error: ${error.response.data.error?.message || error.response.statusText}`,
+        'Perplexity'
+      );
     }
-    throw new Error(`Perplexity API request failed: ${error.message}`);
+    throw new ExternalAPIError(`Perplexity API request failed: ${error.message}`, 'Perplexity');
   }
 }

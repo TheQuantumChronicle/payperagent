@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { weatherCache } from './dbCache';
+import { circuitBreakers } from '../utils/circuitBreaker';
+import { ExternalAPIError, ValidationError } from '../utils/errors';
 
 interface WeatherParams {
   city?: string;
@@ -17,13 +19,12 @@ export const getWeatherData = async (params: WeatherParams) => {
   }
   
   const apiKey = process.env.OPENWEATHER_API_KEY;
-
   if (!apiKey) {
-    throw new Error('OpenWeather API key not configured. Please add OPENWEATHER_API_KEY to your .env file');
+    throw new ExternalAPIError('OpenWeather API key not configured', 'OpenWeather');
   }
 
   if (!params.city && (!params.lat || !params.lon)) {
-    throw new Error('Invalid parameters: provide either city name or coordinates (lat, lon)');
+    throw new ValidationError('Either city or (lat, lon) coordinates are required');
   }
 
   const baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
@@ -35,10 +36,14 @@ export const getWeatherData = async (params: WeatherParams) => {
     queryParams += `&lat=${params.lat}&lon=${params.lon}`;
   }
 
+  const url = `${baseUrl}?${queryParams}`;
+
   try {
-    const response = await axios.get(`${baseUrl}?${queryParams}`, {
-      timeout: 5000,
-    });
+    const response = await circuitBreakers.openweather.execute(() =>
+      axios.get(url, {
+        timeout: 5000,
+      })
+    );
 
     if (!response.data || response.data.cod !== 200) {
       throw new Error(response.data?.message || 'Failed to fetch weather data');
@@ -65,7 +70,7 @@ export const getWeatherData = async (params: WeatherParams) => {
     return weatherData;
   } catch (error: any) {
     if (error.response?.status === 401) {
-      throw new Error('Invalid OpenWeather API key');
+      throw new ExternalAPIError('Invalid OpenWeather API key', 'OpenWeather');
     }
     if (error.response?.status === 404) {
       throw new Error('Location not found');

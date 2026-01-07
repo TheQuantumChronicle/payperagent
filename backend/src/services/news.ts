@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { newsCache } from './dbCache';
+import { circuitBreakers } from '../utils/circuitBreaker';
+import { ExternalAPIError, ValidationError, RateLimitError } from '../utils/errors';
 
 interface NewsParams {
   query?: string;
@@ -20,12 +22,12 @@ export const getNewsData = async (params: NewsParams) => {
   const apiKey = process.env.NEWS_API_KEY;
 
   if (!apiKey) {
-    throw new Error('News API key not configured. Please add NEWS_API_KEY to your .env file');
+    throw new ExternalAPIError('News API key not configured. Please add NEWS_API_KEY to your .env file', 'NewsAPI');
   }
 
   const validCategories = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
   if (params.category && !validCategories.includes(params.category)) {
-    throw new Error(`Invalid category. Must be one of: ${validCategories.join(', ')}`);
+    throw new ValidationError(`Invalid category. Must be one of: ${validCategories.join(', ')}`);
   }
 
   const baseUrl = 'https://newsapi.org/v2/top-headlines';
@@ -47,9 +49,11 @@ export const getNewsData = async (params: NewsParams) => {
   }
 
   try {
-    const response = await axios.get(`${baseUrl}?${queryParams.toString()}`, {
-      timeout: 5000,
-    });
+    const response = await circuitBreakers.newsapi.execute(() =>
+      axios.get(`${baseUrl}?${queryParams.toString()}`, {
+        timeout: 5000,
+      })
+    );
 
     if (response.data.status !== 'ok') {
       throw new Error(response.data.message || 'Failed to fetch news data');
@@ -72,11 +76,11 @@ export const getNewsData = async (params: NewsParams) => {
     return newsData;
   } catch (error: any) {
     if (error.response?.status === 401) {
-      throw new Error('Invalid News API key');
+      throw new ExternalAPIError('Invalid News API key', 'NewsAPI');
     }
     if (error.response?.status === 429) {
-      throw new Error('News API rate limit exceeded. Please upgrade your plan');
+      throw new RateLimitError('News API rate limit exceeded. Please upgrade your plan', 3600, 'NEWSAPI_RATE_LIMIT');
     }
-    throw new Error(error.message || 'Failed to fetch news data');
+    throw new ExternalAPIError(error.message || 'Failed to fetch news data', 'NewsAPI');
   }
 };

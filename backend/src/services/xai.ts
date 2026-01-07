@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { cryptoCache } from './dbCache';
+import { circuitBreakers } from '../utils/circuitBreaker';
+import { ExternalAPIError } from '../utils/errors';
 
 const XAI_API_URL = 'https://api.x.ai/v1/chat/completions';
 
@@ -21,7 +23,7 @@ export async function queryXAI(params: XAIRequest): Promise<any> {
       length: process.env.XAI_API_KEY?.length,
       trimmed: XAI_API_KEY?.length
     });
-    throw new Error('XAI API key not configured');
+    throw new ExternalAPIError('XAI API key not configured', 'XAI');
   }
 
   const cacheKey = `xai:${model}:${prompt.substring(0, 50)}`;
@@ -31,7 +33,8 @@ export async function queryXAI(params: XAIRequest): Promise<any> {
   }
 
   try {
-    const response = await axios.post(
+    const response = await circuitBreakers.xai.execute(() =>
+      axios.post(
       XAI_API_URL,
       {
         model,
@@ -49,13 +52,14 @@ export async function queryXAI(params: XAIRequest): Promise<any> {
         temperature,
         stream: false,
       },
-      {
-        headers: {
-          'Authorization': `Bearer ${XAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        timeout: 30000,
-      }
+        {
+          headers: {
+            'Authorization': `Bearer ${XAI_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          timeout: 30000,
+        }
+      )
     );
 
     const result = {
@@ -71,8 +75,11 @@ export async function queryXAI(params: XAIRequest): Promise<any> {
     return result;
   } catch (error: any) {
     if (error.response) {
-      throw new Error(`XAI API error: ${error.response.data.error?.message || error.response.statusText}`);
+      throw new ExternalAPIError(
+        `XAI API error: ${error.response.data.error?.message || error.response.statusText}`,
+        'XAI'
+      );
     }
-    throw new Error(`XAI API request failed: ${error.message}`);
+    throw new ExternalAPIError(`XAI API request failed: ${error.message}`, 'XAI');
   }
 }

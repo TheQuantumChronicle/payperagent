@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { cryptoCache } from './dbCache';
+import { circuitBreakers } from '../utils/circuitBreaker';
+import { ExternalAPIError, ValidationError, RateLimitError } from '../utils/errors';
 
 interface CryptoParams {
   symbol?: string;
@@ -10,7 +12,7 @@ export const getCryptoPrice = async (params: CryptoParams) => {
   const symbols = params.symbol || params.symbols;
 
   if (!symbols) {
-    throw new Error('No cryptocurrency symbols provided. Use symbol or symbols parameter (e.g., BTCUSDT, ETHUSDT)');
+    throw new ValidationError('No cryptocurrency symbols provided. Use symbol or symbols parameter (e.g., BTCUSDT, ETHUSDT)');
   }
 
   const symbolList = symbols.toUpperCase().split(',').map(s => s.trim());
@@ -27,7 +29,7 @@ export const getCryptoPrice = async (params: CryptoParams) => {
   const validSymbolPattern = /^[A-Z]{3,10}USDT$/;
   for (const symbol of symbolList) {
     if (!validSymbolPattern.test(symbol)) {
-      throw new Error(`Invalid symbol format: ${symbol}. Use format like BTCUSDT, ETHUSDT`);
+      throw new ValidationError(`Invalid symbol format: ${symbol}. Use format like BTCUSDT, ETHUSDT`);
     }
   }
 
@@ -36,16 +38,18 @@ export const getCryptoPrice = async (params: CryptoParams) => {
   try {
     // Fetch ticker data for all symbols
     const pricePromises = symbolList.map(async (symbol) => {
-      const [tickerResponse, statsResponse] = await Promise.all([
-        axios.get(`${baseUrl}/ticker/price`, {
-          params: { symbol },
-          timeout: 5000,
-        }),
-        axios.get(`${baseUrl}/ticker/24hr`, {
-          params: { symbol },
-          timeout: 5000,
-        }),
-      ]);
+      const [tickerResponse, statsResponse] = await circuitBreakers.binance.execute(() =>
+        Promise.all([
+          axios.get(`${baseUrl}/ticker/price`, {
+            params: { symbol },
+            timeout: 5000,
+          }),
+          axios.get(`${baseUrl}/ticker/24hr`, {
+            params: { symbol },
+            timeout: 5000,
+          }),
+        ])
+      );
 
       return {
         symbol,
@@ -79,11 +83,11 @@ export const getCryptoPrice = async (params: CryptoParams) => {
     return formattedData;
   } catch (error: any) {
     if (error.response?.status === 429) {
-      throw new Error('Binance API rate limit exceeded. Please try again later');
+      throw new RateLimitError('Binance API rate limit exceeded. Please try again later', 60);
     }
     if (error.response?.status === 400) {
-      throw new Error('Invalid symbol. Use Binance format: BTCUSDT, ETHUSDT, BNBUSDT, etc.');
+      throw new ValidationError('Invalid symbol. Use Binance format: BTCUSDT, ETHUSDT, BNBUSDT, etc.');
     }
-    throw new Error(error.message || 'Failed to fetch cryptocurrency data from Binance');
+    throw new ExternalAPIError(error.message || 'Failed to fetch cryptocurrency data from Binance', 'Binance');
   }
 };

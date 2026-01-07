@@ -3,17 +3,23 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import dotenv from 'dotenv';
+import { createServer } from 'http';
 import { healthRouter } from './routes/health';
 import { gatewayRouter } from './routes/gateway';
 import { analyticsRouter } from './routes/analytics';
 import { statsRouter } from './routes/stats';
 import { cacheRouter } from './routes/cache';
+import { systemRouter } from './routes/system';
+import { docsRouter } from './routes/docs';
 import { errorHandler } from './middleware/errorHandler';
 import { apiLimiter, createAgentLimiter } from './middleware/rateLimit';
 import { analyticsMiddleware } from './middleware/analytics';
 import { rateLimitHeaders } from './middleware/responseEnhancer';
+import { requestLogger } from './middleware/requestLogger';
+import { corsOptions } from './middleware/cors';
 import { initializeDatabase, checkDatabaseConnection } from './database/init';
 import { startCleanupJobs } from './jobs/cleanup';
+import { RealtimeServer } from './websocket/server';
 
 dotenv.config();
 
@@ -21,9 +27,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(helmet());
-app.use(cors());
-app.use(compression()); // Compress all responses
+app.use(cors(corsOptions));
+app.use(compression());
 app.use(express.json());
+app.use(requestLogger);
 app.use(rateLimitHeaders);
 app.use(analyticsMiddleware);
 
@@ -32,10 +39,18 @@ app.use('/api', apiLimiter, createAgentLimiter(), gatewayRouter);
 app.use('/analytics', analyticsRouter);
 app.use('/stats', statsRouter);
 app.use('/cache', cacheRouter);
+app.use('/system', systemRouter);
+app.use('/docs', docsRouter);
 
 app.use(errorHandler);
 
-app.listen(PORT, async () => {
+// Create HTTP server for WebSocket support
+const server = createServer(app);
+
+// Initialize WebSocket server
+const wsServer = new RealtimeServer(server);
+
+server.listen(PORT, async () => {
   const { PrettyLogger } = await import('./utils/prettyLogger');
   
   // Initialize database
@@ -63,14 +78,19 @@ app.listen(PORT, async () => {
   PrettyLogger.metric('Gas Fees', 'ZERO ⚡');
   
   PrettyLogger.section('API Endpoints');
-  PrettyLogger.info('GET  /health              Health check');
-  PrettyLogger.info('GET  /api                 Gateway information');
-  PrettyLogger.info('GET  /api/weather         Weather data (0.001 USDC)');
-  PrettyLogger.info('GET  /api/crypto          Crypto prices (0.002 USDC)');
-  PrettyLogger.info('GET  /api/news            News articles (0.005 USDC)');
-  PrettyLogger.info('GET  /analytics/usage     Usage statistics');
-  PrettyLogger.info('GET  /cache/stats         Cache statistics');
-  PrettyLogger.info('POST /cache/clear         Clear all caches');
+  PrettyLogger.info('GET  /health                      Health check');
+  PrettyLogger.info('GET  /api                         Gateway information');
+  PrettyLogger.info('GET  /api/weather                 Weather data (0.001 USDC)');
+  PrettyLogger.info('GET  /api/crypto                  Crypto prices (0.002 USDC)');
+  PrettyLogger.info('GET  /api/news                    News articles (0.005 USDC)');
+  PrettyLogger.info('GET  /api/perplexity              AI search (0.010 USDC)');
+  PrettyLogger.info('GET  /api/xai                     Grok AI (0.008 USDC)');
+  PrettyLogger.info('GET  /analytics/usage             Usage statistics');
+  PrettyLogger.info('GET  /cache/stats                 Cache statistics');
+  PrettyLogger.info('GET  /system/circuit-breakers     Circuit breaker status');
+  PrettyLogger.info('GET  /system/metrics              System metrics');
+  PrettyLogger.info('GET  /docs                        API Documentation');
+  PrettyLogger.info('WS   /ws                          WebSocket connection');
   
   PrettyLogger.section('Status');
   if (dbConnected) {
@@ -80,9 +100,16 @@ app.listen(PORT, async () => {
   }
   PrettyLogger.success('Cleanup Jobs: Active (4 scheduled)');
   PrettyLogger.success('Rate Limiting: Enabled');
+  PrettyLogger.success('Circuit Breakers: Active (8 services)');
+  PrettyLogger.success('Request Logging: Enabled');
+  PrettyLogger.success('Error Handling: Enhanced');
+  PrettyLogger.success('WebSocket Server: Active');
+  PrettyLogger.success('API Documentation: /docs');
   PrettyLogger.success(`Server: http://localhost:${PORT}`);
+  PrettyLogger.success(`WebSocket: ws://localhost:${PORT}/ws`);
   
   console.log('');
 });
 
 export default app;
+export { wsServer };
