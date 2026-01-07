@@ -29,6 +29,7 @@ export function useWebSocket({
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectAttemptsRef = useRef(0);
   const reconnectTimeoutRef = useRef<number>();
+  const messageQueueRef = useRef<any[]>([]);
 
   const connect = useCallback(() => {
     try {
@@ -38,6 +39,13 @@ export function useWebSocket({
         console.log('🔌 WebSocket connected');
         setIsConnected(true);
         reconnectAttemptsRef.current = 0;
+        
+        // Send queued messages
+        while (messageQueueRef.current.length > 0) {
+          const message = messageQueueRef.current.shift();
+          ws.send(JSON.stringify(message));
+        }
+        
         onConnect?.();
       };
 
@@ -87,8 +95,11 @@ export function useWebSocket({
   const send = useCallback((message: any) => {
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify(message));
+      return true;
     } else {
-      console.warn('WebSocket is not connected');
+      // Queue message for when connection is restored
+      messageQueueRef.current.push(message);
+      return false;
     }
   }, []);
 
@@ -112,7 +123,8 @@ export function useWebSocket({
     return () => {
       disconnect();
     };
-  }, [connect, disconnect]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
 
   return {
     isConnected,

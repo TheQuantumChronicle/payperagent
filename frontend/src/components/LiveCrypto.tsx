@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Wifi, WifiOff } from 'lucide-react';
-import { useWebSocket } from '../hooks/useWebSocket';
+import { useWebSocketContext } from '../contexts/WebSocketContext';
 
 interface CryptoData {
   [key: string]: {
@@ -13,20 +13,29 @@ interface CryptoData {
 export default function LiveCrypto() {
   const [cryptoData, setCryptoData] = useState<CryptoData>({});
   const [lastUpdate, setLastUpdate] = useState<string>('');
+  const { isConnected, subscribe, lastMessage } = useWebSocketContext();
 
-  const { isConnected, subscribe } = useWebSocket({
-    url: 'ws://localhost:3000/ws',
-    onMessage: (message) => {
-      if (message.type === 'crypto_update' && message.data) {
-        setCryptoData(message.data);
+  useEffect(() => {
+    if (isConnected) {
+      // Small delay to ensure connection is fully established
+      const timer = setTimeout(() => {
+        subscribe('crypto', { symbols: 'BTCUSDT,ETHUSDT,BNBUSDT' });
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isConnected, subscribe]);
+
+  useEffect(() => {
+    if (lastMessage?.type === 'crypto_update' && lastMessage.data) {
+      // Only update if data has actually changed
+      const newData = JSON.stringify(lastMessage.data);
+      const oldData = JSON.stringify(cryptoData);
+      if (newData !== oldData) {
+        setCryptoData(lastMessage.data);
         setLastUpdate(new Date().toLocaleTimeString());
       }
-    },
-    onConnect: () => {
-      console.log('Connected to crypto WebSocket');
-      subscribe('crypto', { symbols: 'BTCUSDT,ETHUSDT,BNBUSDT' });
-    },
-  });
+    }
+  }, [lastMessage, cryptoData]);
 
   const coins = [
     { id: 'btc', name: 'Bitcoin', symbol: 'BTC' },

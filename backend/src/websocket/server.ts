@@ -5,7 +5,7 @@
 
 import { Server as HTTPServer } from 'http';
 import { WebSocketServer, WebSocket } from 'ws';
-import { getCryptoPrice } from '../services/crypto';
+import axios from 'axios';
 
 interface WSClient {
   ws: WebSocket;
@@ -19,7 +19,15 @@ export class RealtimeServer {
   private updateIntervals: Map<string, NodeJS.Timeout> = new Map();
 
   constructor(server: HTTPServer) {
-    this.wss = new WebSocketServer({ server, path: '/ws' });
+    this.wss = new WebSocketServer({ 
+      server, 
+      path: '/ws',
+      verifyClient: (info: { origin: string; secure: boolean; req: any }) => {
+        // Allow all connections in development
+        console.log('WebSocket connection attempt from:', info.origin);
+        return true;
+      }
+    });
     this.initialize();
   }
 
@@ -134,39 +142,88 @@ export class RealtimeServer {
       return; // Already running
     }
 
+    // Fetch immediately on start
+    this.fetchAndBroadcastCrypto(symbols);
+
     const interval = setInterval(async () => {
-      try {
-        const data = await getCryptoPrice({ symbols });
-        this.broadcast('crypto', {
-          type: 'crypto_update',
-          data,
-          timestamp: new Date().toISOString(),
-        });
-      } catch (error: any) {
-        console.error('Error fetching crypto prices:', error.message);
+      // Only fetch if there are active subscribers
+      const hasSubscribers = Array.from(this.clients.values()).some(
+        client => client.subscriptions.has('crypto')
+      );
+      if (hasSubscribers) {
+        await this.fetchAndBroadcastCrypto(symbols);
       }
     }, 5000); // Update every 5 seconds
 
     this.updateIntervals.set(intervalKey, interval);
   }
 
-  private startSystemMetricsBroadcast() {
-    const interval = setInterval(() => {
-      const metrics = {
-        uptime: process.uptime(),
-        memory: {
-          heapUsed: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
-          heapTotal: Math.round(process.memoryUsage().heapTotal / 1024 / 1024),
-          rss: Math.round(process.memoryUsage().rss / 1024 / 1024),
-        },
-        connections: this.clients.size,
-      };
+  private async fetchAndBroadcastCrypto(symbols: string) {
+    try {
+      // Fetch directly from Binance API (no payment required for WebSocket internal use)
+      const symbolList = symbols.toUpperCase().split(',').map(s => s.trim());
+      const baseUrl = 'https://api.binance.com/api/v3';
+      
+      const pricePromises = symbolList.map(async (symbol) => {
+        const [tickerResponse, statsResponse] = await Promise.all([
+          axios.get(`${baseUrl}/ticker/price`, { params: { symbol }, timeout: 5000 }),
+          axios.get(`${baseUrl}/ticker/24hr`, { params: { symbol }, timeout: 5000 }),
+        ]);
 
-      this.broadcast('system', {
-        type: 'system_metrics',
-        data: metrics,
+        return {
+          symbol,
+          price: parseFloat(tickerResponse.data.price),
+          priceChangePercent: parseFloat(statsResponse.data.priceChangePercent),
+        };
+      });
+
+      const results = await Promise.all(pricePromises);
+      
+      // Format data
+      const formattedData: any = {};
+      results.forEach((result) => {
+        const baseCurrency = result.symbol.replace('USDT', '').toLowerCase();
+        formattedData[baseCurrency] = {
+          usd: result.price,
+          usd_24h_change: result.priceChangePercent,
+        };
+      });
+
+      this.broadcast('crypto', {
+        type: 'crypto_update',
+        data: formattedData,
         timestamp: new Date().toISOString(),
       });
+    } catch (error: any) {
+      console.error('Error fetching crypto prices:', error.message);
+      // Don't broadcast errors, just log them
+    }
+  }
+
+  private startSystemMetricsBroadcast() {
+    const interval = setInterval(() => {
+      // Only broadcast if there are active subscribers
+      const hasSubscribers = Array.from(this.clients.values()).some(
+        client => client.subscriptions.has('system')
+      );
+      
+      if (hasSubscribers) {
+        const metrics = {
+          uptime: process.uptime(),
+          memory: {
+            heapUsed: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
+            heapTotal: Math.round(process.memoryUsage().heapTotal / 1024 / 1024),
+            rss: Math.round(process.memoryUsage().rss / 1024 / 1024),
+          },
+          connections: this.clients.size,
+        };
+
+        this.broadcast('system', {
+          type: 'system_metrics',
+          data: metrics,
+          timestamp: new Date().toISOString(),
+        });
+      }
     }, 10000); // Update every 10 seconds
 
     this.updateIntervals.set('system', interval);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Activity, Zap, Database, Shield, TrendingUp, Wifi } from 'lucide-react';
-import { useWebSocket } from '../hooks/useWebSocket';
+import { useWebSocketContext } from '../contexts/WebSocketContext';
 
 interface HealthData {
   status: string;
@@ -17,18 +17,23 @@ interface HealthData {
 export default function SystemStatus() {
   const [health, setHealth] = useState<HealthData | null>(null);
   const [loading, setLoading] = useState(true);
+  const { isConnected: wsConnected, subscribe, lastMessage } = useWebSocketContext();
 
-  const { isConnected: wsConnected, subscribe } = useWebSocket({
-    url: 'ws://localhost:3000/ws',
-    onMessage: (message) => {
-      if (message.type === 'system_metrics' && message.data) {
-        console.log('Received system metrics:', message.data);
-      }
-    },
-    onConnect: () => {
-      subscribe('system');
-    },
-  });
+  useEffect(() => {
+    if (wsConnected) {
+      // Small delay to ensure connection is fully established
+      const timer = setTimeout(() => {
+        subscribe('system');
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [wsConnected, subscribe]);
+
+  useEffect(() => {
+    if (lastMessage?.type === 'system_metrics' && lastMessage.data) {
+      console.log('Received system metrics:', lastMessage.data);
+    }
+  }, [lastMessage]);
 
   useEffect(() => {
     const fetchHealth = async () => {
