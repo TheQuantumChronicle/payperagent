@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Explanation from './components/Explanation';
 import LiveData from './components/LiveData';
+import LiveCrypto from './components/LiveCrypto';
 import SystemStatus from './components/SystemStatus';
 import ApiExplorer from './components/ApiExplorer';
 import PricingCalculator from './components/PricingCalculator';
@@ -22,6 +23,7 @@ function App() {
         <Hero />
         <Explanation />
         <LiveData />
+        <LiveCrypto />
         <div className="py-20 md:py-32 px-4 max-w-7xl mx-auto">
           <SystemStatus />
         </div>

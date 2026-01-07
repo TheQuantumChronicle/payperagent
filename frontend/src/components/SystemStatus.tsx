@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Activity, Zap, Database, Shield, TrendingUp } from 'lucide-react';
+import { Activity, Zap, Database, Shield, TrendingUp, Wifi } from 'lucide-react';
+import { useWebSocket } from '../hooks/useWebSocket';
 
 interface HealthData {
   status: string;
@@ -16,6 +17,18 @@ interface HealthData {
 export default function SystemStatus() {
   const [health, setHealth] = useState<HealthData | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const { isConnected: wsConnected, subscribe } = useWebSocket({
+    url: 'ws://localhost:3000/ws',
+    onMessage: (message) => {
+      if (message.type === 'system_metrics' && message.data) {
+        console.log('Received system metrics:', message.data);
+      }
+    },
+    onConnect: () => {
+      subscribe('system');
+    },
+  });
 
   useEffect(() => {
     const fetchHealth = async () => {
@@ -71,6 +84,12 @@ export default function SystemStatus() {
       <div className="flex items-center gap-3 mb-6">
         <Activity className="w-6 h-6 text-void-400" />
         <h3 className="text-2xl font-bold text-void-100">System Status</h3>
+        {wsConnected && (
+          <div className="flex items-center gap-2 ml-4">
+            <Wifi className="w-4 h-4 text-green-400" />
+            <span className="text-xs text-green-400">Live</span>
+          </div>
+        )}
         <span className={`ml-auto text-lg font-semibold ${getStatusColor(health.status)}`}>
           {getStatusIcon(health.status)} {health.status.toUpperCase()}
         </span>
