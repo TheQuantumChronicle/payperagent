@@ -78,7 +78,7 @@ curl -X GET "https://api.payperagent.com/api/weather?city=London" \
 **Example Request:**
 ```bash
 curl -H "X-PAYMENT: <proof>" \
-  "http://localhost:3000/api/crypto?symbol=BTCUSDT"
+  "https://payperagent.xyz/api/crypto?symbol=BTCUSDT"
 ```
 
 **Example Response:**

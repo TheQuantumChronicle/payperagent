@@ -80,17 +80,17 @@ You should see:
 
 #### Health Check
 ```bash
-curl http://localhost:3000/health
+curl https://payperagent.xyz/health
 ```
 
 #### Gateway Info
 ```bash
-curl http://localhost:3000/api
+curl https://payperagent.xyz/api
 ```
 
 #### Test Weather API (will return 402 Payment Required)
 ```bash
-curl http://localhost:3000/api/weather?city=London
+curl https://payperagent.xyz/api/weather?city=London
 ```
 
 Expected response:

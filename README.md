@@ -2,6 +2,8 @@
 
 **Zero Gas Fee API Gateway for AI Agents on SKALE Network**
 
+🌐 **Live at [payperagent.xyz](https://payperagent.xyz)**
+
 PayPerAgent enables AI agents to discover and pay for premium APIs using SKALE's zero-gas x402 payment protocol. Pay only for what you use - no subscriptions, no gas fees, just micro-transactions.
 
 ## 🎯 Vision
@@ -146,7 +148,22 @@ payperagent/
 
 ## Quick Start
 
-See [docs/QUICKSTART.md](docs/QUICKSTART.md) for detailed setup instructions.
+### Production API
+```bash
+# Test the live API
+curl https://payperagent.xyz/health
+
+# Get crypto prices (requires payment)
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/crypto?symbol=BTCUSDT"
+```
+
+### Documentation
+- 🌐 **Live API**: [payperagent.xyz](https://payperagent.xyz)
+- 🚀 **Quick Start**: [docs/QUICKSTART.md](docs/QUICKSTART.md)
+- 🚢 **Production Deployment**: [docs/PRODUCTION.md](docs/PRODUCTION.md)
+- 🔗 **SKALE Networks**: [docs/SKALE_NETWORKS.md](docs/SKALE_NETWORKS.md)
+- 📚 **API Reference**: [docs/API_ENDPOINTS.md](docs/API_ENDPOINTS.md)
+- 📖 **Full Documentation**: [docs/](docs/)
 
 ## Roadmap
 
@@ -179,9 +196,9 @@ See [docs/QUICKSTART.md](docs/QUICKSTART.md) for detailed setup instructions.
 
 ### 🔄 In Progress
 - 🔄 TypeScript & Python SDKs
-- 🔄 Production deployment
 - 🔄 Frontend marketplace UI enhancements
 - 🔄 API key management system
+- 🔄 Migration to SKALE Europa Hub mainnet
 
 ### 📋 Upcoming
 - 📋 Marketplace UI
@@ -195,15 +212,22 @@ MIT
 
 ## Documentation
 
-- [Quick Start Guide](docs/QUICKSTART.md)
+### Getting Started
+- [Quick Start Guide](docs/QUICKSTART.md) - Get up and running
+- [Production Deployment](docs/PRODUCTION.md) - Deploy to Railway/Netlify
+- [SKALE Networks](docs/SKALE_NETWORKS.md) - Network configuration guide
+
+### API Reference
 - [API Endpoints Reference](docs/API_ENDPOINTS.md) - Complete API documentation
 - [SKALE Integrations](docs/SKALE_INTEGRATIONS.md) - Ruby.Exchange, Chirper.ai, Gaming APIs
 - [Batch API Guide](docs/BATCH_API.md) - Volume discounts & bulk calls
+
+### Technical Details
 - [SKALE Blockchain Integration](docs/SKALE_BLOCKCHAIN_INTEGRATION.md) - Web3 integration details
+- [Architecture Overview](docs/ARCHITECTURE.md) - System architecture
+- [Integration Guide](docs/INTEGRATION.md) - How to integrate PayPerAgent
 - [Test Results](docs/COMPREHENSIVE_TEST_RESULTS.md) - Latest testing results
-- [Integration Guide](docs/INTEGRATION.md)
-- [Architecture Overview](docs/ARCHITECTURE.md)
-- [Project Status](docs/STATUS.md)
+- [Project Status](docs/STATUS.md) - Current development status
 
 ## Links
 

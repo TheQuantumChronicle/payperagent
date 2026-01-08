@@ -8,6 +8,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'http://localhost:4173',
+  'https://payperagent.xyz',
+  'https://www.payperagent.xyz',
   'https://payperagent.netlify.app',
   'https://payperagent.com',
 ];

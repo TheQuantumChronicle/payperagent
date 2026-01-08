@@ -6,7 +6,7 @@
 import axios from 'axios';
 import { ethers } from 'ethers';
 
-const API_BASE = process.env.API_BASE || 'http://localhost:3000/api';
+const API_BASE = process.env.API_BASE || 'https://payperagent.xyz/api';
 const WALLET_PRIVATE_KEY = process.env.PRIVATE_KEY || '';
 const WALLET_ADDRESS = process.env.WALLET_ADDRESS || '';
 

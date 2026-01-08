@@ -38,7 +38,8 @@ export default function SystemStatus() {
   useEffect(() => {
     const fetchHealth = async () => {
       try {
-        const response = await fetch('http://localhost:3000/health');
+        const apiUrl = import.meta.env.VITE_API_URL || 'https://payperagent.xyz';
+        const response = await fetch(`${apiUrl}/health`);
         const data = await response.json();
         setHealth(data);
       } catch (error) {

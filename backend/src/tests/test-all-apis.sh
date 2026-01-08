@@ -4,7 +4,7 @@ echo "🧪 COMPREHENSIVE API TESTING - PayPerAgent on SKALE Network"
 echo "============================================================"
 echo ""
 
-BASE_URL="http://localhost:3000"
+BASE_URL="${API_URL:-http://localhost:3000}"
 PAYMENT_HEADER="X-PAYMENT: test"
 
 # Colors

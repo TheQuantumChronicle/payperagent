@@ -19,7 +19,7 @@ const wallet = new ethers.Wallet('your-private-key');
 
 // Initialize client
 const client = createClient({
-  gatewayUrl: 'http://localhost:3000',
+  gatewayUrl: 'https://payperagent.xyz',
   wallet: wallet,
   autoRetry: true, // Automatically handle payments
 });

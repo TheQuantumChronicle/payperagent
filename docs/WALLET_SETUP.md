@@ -148,17 +148,17 @@ npm run dev
 
 ### Health Check
 ```bash
-curl http://localhost:3000/health
+curl https://payperagent.xyz/health
 ```
 
 ### Gateway Info
 ```bash
-curl http://localhost:3000/api
+curl https://payperagent.xyz/api
 ```
 
 ### Test Weather Endpoint (Will return 402)
 ```bash
-curl http://localhost:3000/api/weather?city=London
+curl https://payperagent.xyz/api/weather?city=London
 ```
 
 **Expected:** 402 Payment Required response with payment details

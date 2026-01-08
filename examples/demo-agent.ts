@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = process.env.API_BASE || 'http://localhost:3000/api';
+const API_BASE = process.env.API_BASE || 'https://payperagent.xyz/api';
 const AGENT_ID = 'demo-agent-001';
 
 interface ApiResponse {

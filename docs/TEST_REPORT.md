@@ -26,7 +26,7 @@ PayPerAgent API Gateway is running flawlessly with all core features functional:
 **Endpoint:** `GET /health`
 
 ```bash
-curl http://localhost:3000/health
+curl https://payperagent.xyz/health
 ```
 
 **Result:**
@@ -48,7 +48,7 @@ curl http://localhost:3000/health
 **Endpoint:** `GET /api`
 
 ```bash
-curl http://localhost:3000/api
+curl https://payperagent.xyz/api
 ```
 
 **Result:**
@@ -96,7 +96,7 @@ curl http://localhost:3000/api
 #### Test 3.1: Weather Endpoint Without Payment
 
 ```bash
-curl http://localhost:3000/api/weather?city=Tokyo
+curl https://payperagent.xyz/api/weather?city=Tokyo
 ```
 
 **Result:**
@@ -118,7 +118,7 @@ curl http://localhost:3000/api/weather?city=Tokyo
 #### Test 3.2: Crypto Endpoint Without Payment
 
 ```bash
-curl http://localhost:3000/api/crypto?symbol=BTCUSDT
+curl https://payperagent.xyz/api/crypto?symbol=BTCUSDT
 ```
 
 **Result:**
@@ -139,7 +139,7 @@ curl http://localhost:3000/api/crypto?symbol=BTCUSDT
 #### Test 3.3: News Endpoint Without Payment
 
 ```bash
-curl http://localhost:3000/api/news
+curl https://payperagent.xyz/api/news
 ```
 
 **Result:**
@@ -166,7 +166,7 @@ curl http://localhost:3000/api/news
 #### Test 4.1: Single Cryptocurrency
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/crypto?symbol=BTCUSDT"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/crypto?symbol=BTCUSDT"
 ```
 
 **Result:**
@@ -191,7 +191,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/crypto?symbol=BTCUSDT"
 #### Test 4.2: Multiple Cryptocurrencies
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/crypto?symbols=BTCUSDT,ETHUSDT,BNBUSDT,SOLUSDT"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/crypto?symbols=BTCUSDT,ETHUSDT,BNBUSDT,SOLUSDT"
 ```
 
 **Result:**
@@ -212,7 +212,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/crypto?symbols=BTCUSDT,ETHU
 #### Test 4.3: Extended Symbol List
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/crypto?symbols=BTCUSDT,ETHUSDT,ADAUSDT,DOGEUSDT,XRPUSDT"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/crypto?symbols=BTCUSDT,ETHUSDT,ADAUSDT,DOGEUSDT,XRPUSDT"
 ```
 
 **Status:** ✅ PASS - 5+ symbols supported
@@ -231,7 +231,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/crypto?symbols=BTCUSDT,ETHU
 #### Test 5.1: Search by Query
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/news?query=AI&pageSize=2"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/news?query=AI&pageSize=2"
 ```
 
 **Result:**
@@ -265,7 +265,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/news?query=AI&pageSize=2"
 #### Test 5.2: Filter by Category
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/news?category=business&country=us&pageSize=2"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/news?category=business&country=us&pageSize=2"
 ```
 
 **Result:**
@@ -290,7 +290,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/news?category=business&coun
 #### Test 5.3: Science Category
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/news?category=science&pageSize=1"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/news?category=science&pageSize=1"
 ```
 
 **Status:** ✅ PASS - All categories supported
@@ -313,7 +313,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/news?category=science&pageS
 #### Test 6.1: City Name
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/weather?city=London"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/weather?city=London"
 ```
 
 **Result:**
@@ -331,7 +331,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/weather?city=London"
 #### Test 6.2: Coordinates
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/weather?lat=40.7128&lon=-74.0060"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/weather?lat=40.7128&lon=-74.0060"
 ```
 
 **Result:**
@@ -357,7 +357,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/weather?lat=40.7128&lon=-74
 
 ```bash
 for i in {1..5}; do 
-  curl -s "http://localhost:3000/api/crypto?symbol=BTCUSDT" > /dev/null
+  curl -s "https://payperagent.xyz/api/crypto?symbol=BTCUSDT" > /dev/null
 done
 ```
 
@@ -390,7 +390,7 @@ done
 #### Test 9.1: Invalid Crypto Symbol
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/crypto?symbol=INVALID"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/crypto?symbol=INVALID"
 ```
 
 **Expected:** Proper error message
@@ -399,7 +399,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/crypto?symbol=INVALID"
 #### Test 9.2: Invalid News Category
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/news?category=invalid"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/news?category=invalid"
 ```
 
 **Expected:** Category validation error
@@ -408,7 +408,7 @@ curl -H "X-PAYMENT: test" "http://localhost:3000/api/news?category=invalid"
 #### Test 9.3: Missing Parameters
 
 ```bash
-curl -H "X-PAYMENT: test" "http://localhost:3000/api/weather"
+curl -H "X-PAYMENT: test" "https://payperagent.xyz/api/weather"
 ```
 
 **Expected:** Parameter requirement error

@@ -16,8 +16,10 @@ def main():
     private_key = os.getenv('PRIVATE_KEY', '0x' + '0' * 64)
     
     # Initialize client
+    # Use production URL or localhost for development
+    gateway_url = os.getenv('API_URL', 'https://payperagent.xyz')
     client = create_client(
-        gateway_url='http://localhost:3000',
+        gateway_url=gateway_url,
         private_key=private_key,
         auto_retry=True
     )

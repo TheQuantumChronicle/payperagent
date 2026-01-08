@@ -11,8 +11,9 @@ interface WebSocketContextType {
 const WebSocketContext = createContext<WebSocketContextType | null>(null);
 
 export function WebSocketProvider({ children }: { children: ReactNode }) {
+  const wsUrl = import.meta.env.VITE_WS_URL || 'wss://payperagent.xyz/ws';
   const ws = useWebSocket({
-    url: 'ws://localhost:3000/ws',
+    url: wsUrl,
     onConnect: () => {
       console.log('🔌 WebSocket Provider connected');
     },

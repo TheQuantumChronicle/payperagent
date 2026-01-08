@@ -3,7 +3,7 @@
 # Backend Comprehensive Test Suite
 # Tests all endpoints, circuit breakers, and functionality
 
-BASE_URL="http://localhost:3000"
+BASE_URL="${API_URL:-http://localhost:3000}"
 PASSED=0
 FAILED=0
 

@@ -8,7 +8,7 @@
 
 ### Base URL
 ```
-http://localhost:3000
+https://payperagent.xyz
 ```
 
 ---
@@ -25,7 +25,7 @@ http://localhost:3000
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/weather?city=London"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/weather?city=London"
 ```
 
 ---
@@ -41,7 +41,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/weather?city=London"
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/crypto?symbol=BTCUSDT"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/crypto?symbol=BTCUSDT"
 ```
 
 ### 3. CoinGecko Markets
@@ -55,7 +55,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/crypto?symbol=BTCUSD
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/coingecko?vs_currency=usd&per_page=10"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/coingecko?vs_currency=usd&per_page=10"
 ```
 
 ### 4. CoinGecko Price
@@ -66,7 +66,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/coingecko?vs_currenc
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/coingecko/price/bitcoin?vs_currency=usd"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/coingecko/price/bitcoin?vs_currency=usd"
 ```
 
 ---
@@ -84,7 +84,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/coingecko/price/bitc
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/news?category=technology&pageSize=5"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/news?category=technology&pageSize=5"
 ```
 
 ---
@@ -100,7 +100,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/news?category=techno
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/wikipedia/search?query=SKALE+Network&limit=5"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/wikipedia/search?query=SKALE+Network&limit=5"
 ```
 
 ### 7. Wikipedia Page
@@ -111,7 +111,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/wikipedia/search?que
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/wikipedia/page?title=Blockchain"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/wikipedia/page?title=Blockchain"
 ```
 
 ---
@@ -129,7 +129,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/wikipedia/page?title
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/reddit?subreddit=programming&sort=hot&limit=10"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/reddit?subreddit=programming&sort=hot&limit=10"
 ```
 
 ### 9. HackerNews
@@ -140,7 +140,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/reddit?subreddit=pro
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/hackernews?limit=10"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/utilities/hackernews?limit=10"
 ```
 
 ---
@@ -158,7 +158,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/hackernews
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/github/search?query=react&sort=stars"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/github/search?query=react&sort=stars"
 ```
 
 ### 11. GitHub User
@@ -167,7 +167,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/github/search?query=
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/github/user/torvalds"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/github/user/torvalds"
 ```
 
 ---
@@ -183,7 +183,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/github/user/torvalds
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/exchange/rates?base=USD&symbols=EUR,GBP,JPY"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/exchange/rates?base=USD&symbols=EUR,GBP,JPY"
 ```
 
 ### 13. Currency Conversion
@@ -196,7 +196,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/exchange/rates?base=
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/exchange/convert?amount=100&from=USD&to=EUR"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/exchange/convert?amount=100&from=USD&to=EUR"
 ```
 
 ---
@@ -211,7 +211,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/exchange/convert?amo
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/ip?ip=8.8.8.8"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/utilities/ip?ip=8.8.8.8"
 ```
 
 ### 15. QR Code Generator
@@ -223,7 +223,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/ip?ip=8.8.
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/qr?text=https://skale.space&size=300"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/utilities/qr?text=https://skale.space&size=300"
 ```
 
 ### 16. Public Holidays
@@ -235,7 +235,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/qr?text=ht
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/holidays?year=2024&country=US"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/utilities/holidays?year=2024&country=US"
 ```
 
 ### 17. Random Dog
@@ -244,7 +244,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/holidays?y
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/random/dog"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/utilities/random/dog"
 ```
 
 ### 18. Random Cat
@@ -253,7 +253,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/random/dog
 
 **Example:**
 ```bash
-curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/random/cat"
+curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/utilities/random/cat"
 ```
 
 ---
@@ -276,7 +276,7 @@ curl -H "X-PAYMENT: <signature>" "http://localhost:3000/api/utilities/random/cat
 ```bash
 curl -X POST -H "X-PAYMENT: <signature>" -H "Content-Type: application/json" \
   -d '{"query":"What is SKALE Network?"}' \
-  "http://localhost:3000/api/perplexity"
+  "https://payperagent.xyz/api/perplexity"
 ```
 
 ### 20. XAI/Grok
@@ -296,7 +296,7 @@ curl -X POST -H "X-PAYMENT: <signature>" -H "Content-Type: application/json" \
 ```bash
 curl -X POST -H "X-PAYMENT: <signature>" -H "Content-Type: application/json" \
   -d '{"prompt":"Explain quantum computing"}' \
-  "http://localhost:3000/api/xai"
+  "https://payperagent.xyz/api/xai"
 ```
 
 ---
@@ -309,7 +309,7 @@ curl -X POST -H "X-PAYMENT: <signature>" -H "Content-Type: application/json" \
 
 **Example:**
 ```bash
-curl "http://localhost:3000/health"
+curl "https://payperagent.xyz/health"
 ```
 
 ### Gateway Info
@@ -318,7 +318,7 @@ curl "http://localhost:3000/health"
 
 **Example:**
 ```bash
-curl "http://localhost:3000/api"
+curl "https://payperagent.xyz/api"
 ```
 
 ### Analytics
@@ -327,7 +327,7 @@ curl "http://localhost:3000/api"
 
 **Example:**
 ```bash
-curl "http://localhost:3000/analytics/usage"
+curl "https://payperagent.xyz/analytics/usage"
 ```
 
 ### Cache Stats
@@ -336,7 +336,7 @@ curl "http://localhost:3000/analytics/usage"
 
 **Example:**
 ```bash
-curl "http://localhost:3000/cache/stats"
+curl "https://payperagent.xyz/cache/stats"
 ```
 
 ---
@@ -377,7 +377,7 @@ curl "http://localhost:3000/cache/stats"
 
 **Example:**
 ```bash
-curl "http://localhost:3000/api/reputation/agent/0x123..."
+curl "https://payperagent.xyz/api/reputation/agent/0x123..."
 ```
 
 **Response:**
@@ -410,7 +410,7 @@ curl "http://localhost:3000/api/reputation/agent/0x123..."
 
 **Example:**
 ```bash
-curl "http://localhost:3000/api/reputation/leaderboard?limit=5"
+curl "https://payperagent.xyz/api/reputation/leaderboard?limit=5"
 ```
 
 ---
@@ -484,7 +484,7 @@ Add these headers to any API request:
 curl -H "X-PAYMENT: <signature>" \
      -H "X-PAYMENT-TOKEN: SKL" \
      -H "X-PAYMENT-AMOUNT: 0.02" \
-     "http://localhost:3000/api/crypto?symbol=BTCUSDT"
+     "https://payperagent.xyz/api/crypto?symbol=BTCUSDT"
 ```
 
 **Supported Tokens:**

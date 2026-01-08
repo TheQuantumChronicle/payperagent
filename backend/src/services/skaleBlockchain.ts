@@ -1,39 +1,80 @@
 import { ethers } from 'ethers';
 
 // SKALE Network Configuration
+// SKALE has 4 main Hub chains (shared public chains) + Chaos testnet + custom chains
 export const SKALE_CHAINS = {
-  NEBULA_TESTNET: {
-    name: 'SKALE Nebula Hub Testnet',
-    chainId: 37084624,
-    rpc: 'https://testnet.skalenodes.com/v1/lanky-ill-funny-testnet',
-    explorer: 'https://lanky-ill-funny-testnet.explorer.testnet.skalenodes.com',
-    nativeCurrency: {
-      name: 'sFUEL',
-      symbol: 'sFUEL',
-      decimals: 18
-    }
-  },
+  // === MAINNET HUBS (Production) ===
   EUROPA_HUB: {
     name: 'SKALE Europa Hub',
     chainId: 2046399126,
     rpc: 'https://mainnet.skalenodes.com/v1/elated-tan-skat',
+    wss: 'wss://mainnet.skalenodes.com/v1/ws/elated-tan-skat',
     explorer: 'https://elated-tan-skat.explorer.mainnet.skalenodes.com',
     nativeCurrency: {
       name: 'sFUEL',
       symbol: 'sFUEL',
       decimals: 18
-    }
+    },
+    description: 'DeFi & Liquidity Hub - Main entry point for SKALE ecosystem',
+    features: ['DEX', 'Liquidity', 'Token Bridge']
   },
   CALYPSO_HUB: {
     name: 'SKALE Calypso Hub',
     chainId: 1564830818,
     rpc: 'https://mainnet.skalenodes.com/v1/honorable-steel-rasalhague',
+    wss: 'wss://mainnet.skalenodes.com/v1/ws/honorable-steel-rasalhague',
     explorer: 'https://honorable-steel-rasalhague.explorer.mainnet.skalenodes.com',
     nativeCurrency: {
       name: 'sFUEL',
       symbol: 'sFUEL',
       decimals: 18
-    }
+    },
+    description: 'NFT Hub - Free minting and trading',
+    features: ['NFT', 'Marketplaces', 'On-chain Storage']
+  },
+  NEBULA_HUB: {
+    name: 'SKALE Nebula Hub',
+    chainId: 1482601649,
+    rpc: 'https://mainnet.skalenodes.com/v1/green-giddy-denebola',
+    wss: 'wss://mainnet.skalenodes.com/v1/ws/green-giddy-denebola',
+    explorer: 'https://green-giddy-denebola.explorer.mainnet.skalenodes.com',
+    nativeCurrency: {
+      name: 'sFUEL',
+      symbol: 'sFUEL',
+      decimals: 18
+    },
+    description: 'Gaming Hub - Zero gas for gaming dApps',
+    features: ['Gaming', 'NFTs', 'In-game Assets']
+  },
+  TITAN_HUB: {
+    name: 'SKALE Titan Hub',
+    chainId: 1350216234,
+    rpc: 'https://mainnet.skalenodes.com/v1/parallel-stormy-spica',
+    wss: 'wss://mainnet.skalenodes.com/v1/ws/parallel-stormy-spica',
+    explorer: 'https://parallel-stormy-spica.explorer.mainnet.skalenodes.com',
+    nativeCurrency: {
+      name: 'sFUEL',
+      symbol: 'sFUEL',
+      decimals: 18
+    },
+    description: 'Community Hub - DAOs, identity, social networks',
+    features: ['DAO', 'Identity', 'Messaging', 'Social']
+  },
+  
+  // === TESTNET (Free Development) ===
+  CHAOS_TESTNET: {
+    name: 'SKALE Chaos Testnet',
+    chainId: 1351057110,
+    rpc: 'https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix',
+    wss: 'wss://staging-v3.skalenodes.com/v1/ws/staging-fast-active-bellatrix',
+    explorer: 'https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com',
+    nativeCurrency: {
+      name: 'sFUEL',
+      symbol: 'sFUEL',
+      decimals: 18
+    },
+    description: 'Free testnet for all developers',
+    features: ['Free Deploy', 'Testing', 'Development']
   }
 };
 

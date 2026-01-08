@@ -21,7 +21,7 @@ const apis: API[] = [
     description: 'Real-time cryptocurrency prices from Binance',
     endpoint: '/api/crypto?symbol=BTCUSDT',
     price: '0.002',
-    example: 'curl -H "X-PAYMENT: <sig>" "http://localhost:3000/api/crypto?symbol=BTCUSDT"',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/crypto?symbol=BTCUSDT"',
     response: '{"symbol":"BTCUSDT","price":"43250.50","change24h":"+2.5%"}'
   },
   {
@@ -31,7 +31,7 @@ const apis: API[] = [
     description: 'Current weather conditions for any city',
     endpoint: '/api/weather?city=London',
     price: '0.001',
-    example: 'curl -H "X-PAYMENT: <sig>" "http://localhost:3000/api/weather?city=London"',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/weather?city=London"',
     response: '{"temp":15,"condition":"Cloudy","humidity":75}'
   },
   {
@@ -41,7 +41,7 @@ const apis: API[] = [
     description: 'Top cryptocurrencies by market cap',
     endpoint: '/api/coingecko?per_page=5',
     price: '0.001',
-    example: 'curl -H "X-PAYMENT: <sig>" "http://localhost:3000/api/coingecko?per_page=5"',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/coingecko?per_page=5"',
     response: '{"coins":[{"name":"Bitcoin","price":"$43250"}]}'
   },
   {
@@ -51,7 +51,7 @@ const apis: API[] = [
     description: 'Search Wikipedia articles and get summaries',
     endpoint: '/api/wikipedia/search?query=blockchain',
     price: '0.002',
-    example: 'curl -H "X-PAYMENT: <sig>" "http://localhost:3000/api/wikipedia/search?query=blockchain"',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/wikipedia/search?query=blockchain"',
     response: '{"results":[{"title":"Blockchain","snippet":"..."}]}'
   },
   {
@@ -61,7 +61,7 @@ const apis: API[] = [
     description: 'Search repositories and get user info',
     endpoint: '/api/github/search?q=react',
     price: '0.003',
-    example: 'curl -H "X-PAYMENT: <sig>" "http://localhost:3000/api/github/search?q=react"',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/github/search?q=react"',
     response: '{"repos":[{"name":"react","stars":200000}]}'
   },
   {
@@ -71,7 +71,7 @@ const apis: API[] = [
     description: 'Latest news headlines by category',
     endpoint: '/api/news?category=technology',
     price: '0.005',
-    example: 'curl -H "X-PAYMENT: <sig>" "http://localhost:3000/api/news?category=technology"',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/news?category=technology"',
     response: '{"articles":[{"title":"AI Breakthrough","source":"TechCrunch"}]}'
   },
   {
@@ -81,7 +81,7 @@ const apis: API[] = [
     description: 'Top posts from any subreddit',
     endpoint: '/api/reddit?subreddit=cryptocurrency',
     price: '0.002',
-    example: 'curl -H "X-PAYMENT: <sig>" "http://localhost:3000/api/reddit?subreddit=cryptocurrency"',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/reddit?subreddit=cryptocurrency"',
     response: '{"posts":[{"title":"Bitcoin hits new high","upvotes":5000}]}'
   },
   {
@@ -91,7 +91,7 @@ const apis: API[] = [
     description: 'AI-powered web search and answers',
     endpoint: '/api/perplexity',
     price: '0.010',
-    example: 'curl -H "X-PAYMENT: <sig>" -d "query=What is SKALE?" "http://localhost:3000/api/perplexity"',
+    example: 'curl -H "X-PAYMENT: <sig>" -d "query=What is SKALE?" "https://payperagent.xyz/api/perplexity"',
     response: '{"answer":"SKALE is a zero-gas blockchain network..."}'
   }
 ];

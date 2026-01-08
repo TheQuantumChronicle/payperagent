@@ -20,7 +20,8 @@ export default function Analytics() {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const response = await fetch('http://localhost:3000/analytics/usage');
+        const apiUrl = import.meta.env.VITE_API_URL || 'https://payperagent.xyz';
+        const response = await fetch(`${apiUrl}/analytics/usage`);
         const data = await response.json();
         setAnalytics(data);
       } catch (error) {

@@ -15,7 +15,7 @@ from payperagent import create_client
 
 # Create client with wallet for payments
 client = create_client(
-    gateway_url='http://localhost:3000',
+    gateway_url='https://payperagent.xyz',
     private_key='your-private-key',
     auto_retry=True  # Automatically handle payments
 )

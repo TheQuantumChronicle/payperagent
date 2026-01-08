@@ -19,12 +19,12 @@ export const swaggerDocument = {
   },
   servers: [
     {
-      url: 'http://localhost:3000',
-      description: 'Development server',
+      url: 'https://payperagent.xyz',
+      description: 'Production server',
     },
     {
-      url: 'https://api.payperagent.com',
-      description: 'Production server',
+      url: 'http://localhost:3000',
+      description: 'Development server',
     },
   ],
   tags: [

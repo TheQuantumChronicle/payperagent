@@ -17,7 +17,8 @@ export default function Leaderboard() {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/reputation/leaderboard?limit=10');
+        const apiUrl = import.meta.env.VITE_API_URL || 'https://payperagent.xyz';
+        const response = await fetch(`${apiUrl}/api/reputation/leaderboard?limit=10`);
         const data = await response.json();
         if (data.success) {
           setLeaderboard(data.leaderboard);

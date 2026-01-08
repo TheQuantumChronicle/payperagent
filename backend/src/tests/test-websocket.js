@@ -7,7 +7,7 @@
 
 const WebSocket = require('ws');
 
-const WS_URL = 'ws://localhost:3000/ws';
+const WS_URL = process.env.WS_URL || 'ws://localhost:3000/ws';
 let testsPassed = 0;
 let testsFailed = 0;
 

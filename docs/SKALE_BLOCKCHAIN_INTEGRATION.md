@@ -183,11 +183,11 @@ npx tsx test-skale-blockchain.ts
 
 # Test Ruby.Exchange with blockchain
 curl -H "X-PAYMENT: test" \
-  "http://localhost:3000/api/ruby/price?token=SKL&pair=USDC"
+  "https://payperagent.xyz/api/ruby/price?token=SKL&pair=USDC"
 
 # Verify block number is real
 curl -H "X-PAYMENT: test" \
-  "http://localhost:3000/api/ruby/pairs?limit=3" | jq '.blockNumber'
+  "https://payperagent.xyz/api/ruby/pairs?limit=3" | jq '.blockNumber'
 ```
 
 **Expected Results:**

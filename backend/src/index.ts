@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import dotenv from 'dotenv';
+import path from 'path';
 import { createServer } from 'http';
 import { healthRouter } from './routes/health';
 import { gatewayRouter } from './routes/gateway';
@@ -27,7 +28,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false, // Allow frontend assets
+  crossOriginEmbedderPolicy: false,
+}));
 app.use(cors(corsOptions));
 app.use(compression());
 app.use(express.json());
@@ -41,6 +45,7 @@ app.use(createAgentKitMiddleware({
   network: 'skale',
 }));
 
+// API routes (must come before static files)
 app.use('/health', healthRouter);
 app.use('/api', apiLimiter, createAgentLimiter(), gatewayRouter);
 app.use('/analytics', analyticsRouter);
@@ -48,6 +53,25 @@ app.use('/stats', statsRouter);
 app.use('/cache', cacheRouter);
 app.use('/system', systemRouter);
 app.use('/docs', docsRouter);
+
+// Serve frontend static files
+const frontendPath = path.join(__dirname, '../../frontend/dist');
+app.use(express.static(frontendPath));
+
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  // Don't serve index.html for API routes
+  if (req.path.startsWith('/api') || 
+      req.path.startsWith('/health') || 
+      req.path.startsWith('/stats') ||
+      req.path.startsWith('/analytics') ||
+      req.path.startsWith('/cache') ||
+      req.path.startsWith('/system') ||
+      req.path.startsWith('/docs')) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  return res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 app.use(errorHandler);
 

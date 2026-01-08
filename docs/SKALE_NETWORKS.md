@@ -1,6 +1,23 @@
-# SKALE Network Reference
+# SKALE Network Configuration Guide
 
-Complete list of all active SKALE Chains with connection details.
+Complete guide to SKALE Network chains and configuration for PayPerAgent.
+
+## 🌐 SKALE Network Architecture
+
+SKALE Network consists of:
+1. **4 Public Hub Chains (Mainnet)** - Shared chains for specific use cases
+2. **Chaos Testnet** - Free development chain
+3. **Custom SKALE Chains** - Private chains for individual projects
+
+### Understanding SKALE Hubs vs Custom Chains
+
+**SKALE Hubs** are shared, public SKALE chains designed for specific industries:
+- **Europa Hub**: DeFi & Liquidity (main entry point)
+- **Calypso Hub**: NFT marketplace and trading
+- **Nebula Hub**: Gaming applications
+- **Titan Hub**: Community projects (DAOs, identity, social)
+
+**Custom Chains** are private SKALE chains deployed for individual projects. These have unique names like "jubilant-horrible-ancha" and are NOT part of the public Hub ecosystem.
 
 ---
 

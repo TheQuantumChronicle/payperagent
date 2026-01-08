@@ -42,18 +42,18 @@ cd backend
 npm run dev
 ```
 
-Server will start on http://localhost:3000
+Server will start on https://payperagent.xyz
 
 ## Test the API
 
 ### Health Check
 ```bash
-curl http://localhost:3000/health
+curl https://payperagent.xyz/health
 ```
 
 ### Weather API (without payment - will get 402)
 ```bash
-curl "http://localhost:3000/api/weather?city=London"
+curl "https://payperagent.xyz/api/weather?city=London"
 ```
 
 Expected response:
@@ -70,7 +70,7 @@ Expected response:
 
 ### Crypto API (without payment - will get 402)
 ```bash
-curl "http://localhost:3000/api/crypto?symbol=bitcoin"
+curl "https://payperagent.xyz/api/crypto?symbol=bitcoin"
 ```
 
 ## Next Steps

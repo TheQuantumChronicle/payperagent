@@ -591,7 +591,7 @@ Add payment token headers to your request:
 curl -H "X-PAYMENT: <signature>" \
      -H "X-PAYMENT-TOKEN: SKL" \
      -H "X-PAYMENT-AMOUNT: 0.02" \
-     "http://localhost:3000/api/ruby/price?token=SKL"
+     "https://payperagent.xyz/api/ruby/price?token=SKL"
 ```
 
 **Automatic Conversion**: 

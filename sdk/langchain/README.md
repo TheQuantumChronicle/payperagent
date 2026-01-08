@@ -19,7 +19,7 @@ import { ChatOpenAI } from 'langchain/chat_models/openai';
 const weatherTool = new PayPerAgentTool({
   name: 'weather',
   description: 'Get current weather for any city',
-  endpoint: 'http://localhost:3000/api/weather',
+  endpoint: 'https://payperagent.xyz/api/weather',
   walletAddress: '0x...',
   privateKey: process.env.PRIVATE_KEY,
 });
@@ -27,7 +27,7 @@ const weatherTool = new PayPerAgentTool({
 const cryptoTool = new PayPerAgentTool({
   name: 'crypto_price',
   description: 'Get cryptocurrency prices',
-  endpoint: 'http://localhost:3000/api/crypto',
+  endpoint: 'https://payperagent.xyz/api/crypto',
   walletAddress: '0x...',
   privateKey: process.env.PRIVATE_KEY,
 });
