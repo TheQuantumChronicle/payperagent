@@ -18,14 +18,14 @@ async function testSkaleConnection() {
     
     // Test Nebula Testnet
     console.log('Testing Nebula Testnet:');
-    const nebulaBlock = await getBlockNumber('NEBULA_TESTNET');
-    const nebulaGas = await getGasPrice('NEBULA_TESTNET');
+    const nebulaBlock = await getBlockNumber('NEBULA_HUB');
+    const nebulaGas = await getGasPrice('NEBULA_HUB');
     
-    console.log(`✅ Chain: ${SKALE_CHAINS.NEBULA_TESTNET.name}`);
-    console.log(`✅ Chain ID: ${SKALE_CHAINS.NEBULA_TESTNET.chainId}`);
-    console.log(`✅ Current Block: ${nebulaBlock}`);
-    console.log(`✅ Gas Price: ${nebulaGas}`);
-    console.log(`✅ RPC: ${SKALE_CHAINS.NEBULA_TESTNET.rpc}\n`);
+    console.log(`✅ Chain: ${SKALE_CHAINS.NEBULA_HUB.name}`);
+    console.log(`✅ Chain ID: ${SKALE_CHAINS.NEBULA_HUB.chainId}`);
+    console.log(`✅ Block Number: ${nebulaBlock}`);
+    console.log(`✅ Gas Price: ${nebulaGas} (should be 0)`);
+    console.log(`✅ RPC: ${SKALE_CHAINS.NEBULA_HUB.rpc}\n`);
     
     // Test Calypso Hub
     console.log('Testing Calypso Hub:');
