@@ -9,8 +9,10 @@ CREATE TABLE IF NOT EXISTS analytics (
     status_code INTEGER NOT NULL,
     response_time INTEGER NOT NULL,
     agent_id VARCHAR(255),
+    wallet_address VARCHAR(42),
     ip_address VARCHAR(45),
     payment_amount DECIMAL(10, 6),
+    amount DECIMAL(10, 6),
     cached BOOLEAN DEFAULT FALSE,
     error_message TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
@@ -19,6 +21,7 @@ CREATE TABLE IF NOT EXISTS analytics (
 CREATE INDEX IF NOT EXISTS idx_analytics_timestamp ON analytics(timestamp);
 CREATE INDEX IF NOT EXISTS idx_analytics_endpoint ON analytics(endpoint);
 CREATE INDEX IF NOT EXISTS idx_analytics_agent_id ON analytics(agent_id);
+CREATE INDEX IF NOT EXISTS idx_analytics_wallet_address ON analytics(wallet_address);
 CREATE INDEX IF NOT EXISTS idx_analytics_created_at ON analytics(created_at);
 
 -- Cache table for persistent caching across restarts

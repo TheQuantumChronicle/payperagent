@@ -28,6 +28,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy for Railway deployment
+app.set('trust proxy', true);
+
 app.use(helmet({
   contentSecurityPolicy: false, // Allow frontend assets
   crossOriginEmbedderPolicy: false,
