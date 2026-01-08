@@ -1,4 +1,4 @@
-import { createSkaleProvider, getBlockNumber, getGasPrice, SKALE_CHAINS } from './src/services/skaleBlockchain';
+import { createSkaleProvider, getBlockNumber, getGasPrice, SKALE_CHAINS } from '../services/skaleBlockchain';
 
 async function testSkaleConnection() {
   console.log('🔗 Testing SKALE Network Connection...\n');
@@ -6,7 +6,7 @@ async function testSkaleConnection() {
   try {
     // Test Europa Hub (where Ruby.Exchange is deployed)
     console.log('Testing Europa Hub:');
-    const europaProvider = createSkaleProvider('EUROPA_HUB');
+    createSkaleProvider('EUROPA_HUB'); // Initialize provider
     const europaBlock = await getBlockNumber('EUROPA_HUB');
     const europaGas = await getGasPrice('EUROPA_HUB');
     
