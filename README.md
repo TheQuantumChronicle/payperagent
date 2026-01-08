@@ -129,13 +129,19 @@ payperagent/
 │   │   ├── middleware/       # Request processing
 │   │   ├── utils/            # Utilities (errors, circuit breakers, validation)
 │   │   ├── websocket/        # WebSocket server
-│   │   └── database/         # PostgreSQL integration
-│   ├── test-backend.sh       # Automated test suite
-│   └── test-websocket.js     # WebSocket tests
+│   │   ├── integrations/     # AgentKit, external integrations
+│   │   ├── database/         # PostgreSQL integration
+│   │   └── tests/            # Test suite (API, DB, WebSocket, SKALE)
 ├── frontend/          # Marketplace UI (React + Vite)
+│   ├── src/
+│   │   ├── components/       # React components (Analytics, Leaderboard, SKALE Ecosystem)
+│   │   └── contexts/         # WebSocket context
+├── sdk/              # Client SDKs
+│   ├── typescript/           # TypeScript SDK
+│   └── langchain/            # LangChain integration
 ├── contracts/         # Smart contracts (optional)
 ├── docs/             # Documentation
-└── examples/         # Sample AI agents
+└── examples/         # Sample AI agents (LangChain, demo agents)
 ```
 
 ## Quick Start
