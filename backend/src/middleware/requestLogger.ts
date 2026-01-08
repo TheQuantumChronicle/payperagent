@@ -5,53 +5,55 @@
 import { Request, Response, NextFunction } from 'express';
 import chalk from 'chalk';
 import { performanceMonitor } from '../utils/performanceMonitor';
+import { randomUUID } from 'crypto';
 
 export const requestLogger = (req: Request, res: Response, next: NextFunction) => {
-  const startTime = Date.now();
-  const { method, url } = req;
+  // Add correlation ID for request tracking
+  const correlationId = req.headers['x-correlation-id'] as string || randomUUID();
+  req.headers['x-correlation-id'] = correlationId;
+  res.setHeader('X-Correlation-ID', correlationId);
   
-  // Capture original end function
-  const originalEnd = res.end;
-  
-  // Override end function to log after response
-  res.end = function(this: Response, chunk?: any, encoding?: any, callback?: any): any {
-    const responseTime = Date.now() - startTime;
+  const start = Date.now();
+  const method = req.method;
+  const url = req.url;
+  const ip = req.headers['x-forwarded-for'] || req.ip || req.socket.remoteAddress;
+  const userAgent = req.headers['user-agent'];
+
+  res.on('finish', () => {
+    const duration = Date.now() - start;
     const statusCode = res.statusCode;
-    
-    // Color-coded logging based on status
-    let statusColor = chalk.green;
-    if (statusCode >= 500) statusColor = chalk.red;
-    else if (statusCode >= 400) statusColor = chalk.yellow;
-    else if (statusCode >= 300) statusColor = chalk.cyan;
-    
-    const methodColor = 
-      method === 'GET' ? chalk.blue :
-      method === 'POST' ? chalk.green :
-      method === 'PUT' ? chalk.yellow :
-      method === 'DELETE' ? chalk.red :
-      chalk.white;
-    
-    console.log(
-      `${methodColor(method.padEnd(6))} ${statusColor(statusCode.toString())} ${url.padEnd(40)} ${chalk.gray(`${responseTime}ms`)}`
-    );
-    
-    // Log slow requests
-    if (responseTime > 1000) {
-      console.warn(chalk.yellow(`⚠️  Slow request: ${method} ${url} took ${responseTime}ms`));
+    const statusEmoji = statusCode >= 500 ? '🔴' : statusCode >= 400 ? '⚠️' : statusCode >= 300 ? '↪️' : '✓';
+
+    // Structured logging for production
+    if (process.env.NODE_ENV === 'production') {
+      console.log(JSON.stringify({
+        timestamp: new Date().toISOString(),
+        correlationId,
+        method,
+        url,
+        statusCode,
+        duration,
+        ip,
+        userAgent
+      }));
+    } else {
+      console.log(`${statusEmoji} ${method.padEnd(6)} ${statusCode} ${url.padEnd(40)} ${duration}ms`);
     }
-    
+
+    // Log slow requests
+    if (duration > 1000) {
+      console.warn(chalk.yellow(`⚠️  Slow request: ${method} ${url} took ${duration}ms`));
+    }
+
     // Record performance metric
     performanceMonitor.addMetric({
       endpoint: url,
       method,
-      responseTime,
+      responseTime: duration,
       statusCode,
       timestamp: Date.now(),
     });
-    
-    // Call original end function
-    return originalEnd.call(this, chunk, encoding, callback);
-  };
+  });
   
   next();
 };

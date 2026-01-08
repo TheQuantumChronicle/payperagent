@@ -57,9 +57,23 @@ app.use('/cache', cacheRouter);
 app.use('/system', systemRouter);
 app.use('/docs', docsRouter);
 
-// Serve frontend static files
+// Serve frontend static files with caching
 const frontendPath = path.join(__dirname, '../../frontend/dist');
-app.use(express.static(frontendPath));
+app.use(express.static(frontendPath, {
+  maxAge: '1d', // Cache static assets for 1 day
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, filepath) => {
+    // Cache immutable assets (hashed files) for 1 year
+    if (filepath.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$/)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+    // Don't cache HTML
+    if (filepath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+  }
+}));
 
 // SPA fallback - serve index.html for all non-API routes
 app.get('*', (req, res) => {
