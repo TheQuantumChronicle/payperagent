@@ -20,8 +20,10 @@ export default function Leaderboard() {
         const apiUrl = import.meta.env.VITE_API_URL || 'https://payperagent.xyz';
         const response = await fetch(`${apiUrl}/api/reputation/leaderboard?limit=10`);
         const data = await response.json();
-        if (data.success) {
-          setLeaderboard(data.leaderboard);
+        if (data.success && Array.isArray(data.leaderboard)) {
+          // Filter out entries with null/undefined walletAddress
+          const validEntries = data.leaderboard.filter((entry: LeaderboardEntry) => entry.walletAddress);
+          setLeaderboard(validEntries);
         }
       } catch (error) {
         console.error('Failed to fetch leaderboard:', error);
@@ -106,7 +108,7 @@ export default function Leaderboard() {
                     </span>
                   </div>
                   <div className="font-mono text-xs text-gray-500">
-                    {entry.walletAddress.slice(0, 6)}...{entry.walletAddress.slice(-4)}
+                    {entry.walletAddress ? `${entry.walletAddress.slice(0, 6)}...${entry.walletAddress.slice(-4)}` : 'Unknown'}
                   </div>
                 </div>
                 <div className="text-right">

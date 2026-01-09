@@ -33,6 +33,12 @@ export function useWebSocket({
 
   const connect = useCallback(() => {
     try {
+      // Skip WebSocket connection if not supported or in production with connection issues
+      if (typeof WebSocket === 'undefined') {
+        console.warn('WebSocket not supported');
+        return;
+      }
+
       const ws = new WebSocket(url);
 
       ws.onopen = () => {
