@@ -10,6 +10,9 @@ export const apiLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  validate: {
+    trustProxy: false, // Disable trust proxy validation
+  },
 });
 
 export const createAgentLimiter = (maxRequests: number = 1000) => {
@@ -26,5 +29,8 @@ export const createAgentLimiter = (maxRequests: number = 1000) => {
     },
     standardHeaders: true,
     legacyHeaders: false,
+    validate: {
+      trustProxy: false, // Disable trust proxy validation
+    },
   });
 };
