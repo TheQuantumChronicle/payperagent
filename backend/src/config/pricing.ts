@@ -70,6 +70,130 @@ export const API_PRICING = {
     currency: 'USDC',
     description: 'Random cat images',
   },
+  // New Free APIs
+  jokes_random: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Random jokes',
+  },
+  jokes_type: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Jokes by type',
+  },
+  jokes_search: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Search jokes',
+  },
+  bored: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Activity suggestions',
+  },
+  name_age: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Predict age from name',
+  },
+  name_gender: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Predict gender from name',
+  },
+  name_nationality: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Predict nationality from name',
+  },
+  name_all: {
+    amount: '0.001',
+    currency: 'USDC',
+    description: 'Predict age, gender, and nationality',
+  },
+  // Cat Facts API
+  catfact_random: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Random cat fact',
+  },
+  catfact_multiple: {
+    amount: '0.001',
+    currency: 'USDC',
+    description: 'Multiple cat facts',
+  },
+  // Universities API
+  universities: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Search universities by country or name',
+  },
+  // REST Countries API
+  countries_all: {
+    amount: '0.002',
+    currency: 'USDC',
+    description: 'Get all countries data',
+  },
+  countries_name: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Get country by name',
+  },
+  countries_code: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Get country by code',
+  },
+  // Advice Slip API
+  advice_random: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Random advice',
+  },
+  advice_search: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Search advice',
+  },
+  // Zipcode API
+  zipcode: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Zip code location lookup',
+  },
+  // Random User API
+  randomuser: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Generate random user profiles',
+  },
+  // Open Library API
+  openlibrary_search: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Search books',
+  },
+  openlibrary_isbn: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Get book by ISBN',
+  },
+  // Rick and Morty API
+  rickmorty_characters: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Get Rick and Morty characters',
+  },
+  rickmorty_character: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Get specific character',
+  },
+  rickmorty_episodes: {
+    amount: '0.0005',
+    currency: 'USDC',
+    description: 'Get Rick and Morty episodes',
+  },
   // SKALE Ecosystem Integrations
   // Ruby.Exchange (DEX)
   ruby_price: {

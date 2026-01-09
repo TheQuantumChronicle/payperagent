@@ -8,6 +8,17 @@ import { redditRouter } from './apis/reddit';
 import { githubRouter } from './apis/github';
 import { exchangeRouter } from './apis/exchange';
 import { utilitiesRouter } from './apis/utilities';
+import { jokesRouter } from './apis/jokes';
+import { boredRouter } from './apis/bored';
+import { namePredictorRouter } from './apis/namePredictor';
+import { catFactsRouter } from './apis/catFacts';
+import { universitiesRouter } from './apis/universities';
+import { countriesRouter } from './apis/countries';
+import { adviceRouter } from './apis/advice';
+import { zipcodeRouter } from './apis/zipcode';
+import { randomUserRouter } from './apis/randomUser';
+import { openLibraryRouter } from './apis/openLibrary';
+import { rickMortyRouter } from './apis/rickMorty';
 import { rubyRouter } from './apis/ruby';
 import { chirperRouter } from './apis/chirper';
 import { gamingRouter } from './apis/gaming';
@@ -28,6 +39,17 @@ gatewayRouter.use('/reddit', redditRouter);
 gatewayRouter.use('/github', githubRouter);
 gatewayRouter.use('/exchange', exchangeRouter);
 gatewayRouter.use('/utilities', utilitiesRouter);
+gatewayRouter.use('/jokes', jokesRouter);
+gatewayRouter.use('/bored', boredRouter);
+gatewayRouter.use('/name', namePredictorRouter);
+gatewayRouter.use('/catfacts', catFactsRouter);
+gatewayRouter.use('/universities', universitiesRouter);
+gatewayRouter.use('/countries', countriesRouter);
+gatewayRouter.use('/advice', adviceRouter);
+gatewayRouter.use('/zipcode', zipcodeRouter);
+gatewayRouter.use('/randomuser', randomUserRouter);
+gatewayRouter.use('/books', openLibraryRouter);
+gatewayRouter.use('/rickmorty', rickMortyRouter);
 
 // SKALE Ecosystem Integrations
 gatewayRouter.use('/ruby', rubyRouter);
@@ -98,8 +120,8 @@ gatewayRouter.get('/', (_req, res) => {
       },
     ],
     stats: {
-      totalEndpoints: 27,
-      totalAPIs: 14,
+      totalEndpoints: 53,
+      totalAPIs: 25,
       skaleEcosystemAPIs: 13,
       averageResponseTime: '250ms',
       uptime: '99.9%',

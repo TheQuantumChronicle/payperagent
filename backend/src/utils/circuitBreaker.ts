@@ -122,4 +122,12 @@ export const circuitBreakers = {
   agify: new CircuitBreaker('Agify API'),
   genderize: new CircuitBreaker('Genderize API'),
   nationalize: new CircuitBreaker('Nationalize API'),
+  catfacts: new CircuitBreaker('Cat Facts API'),
+  universities: new CircuitBreaker('Universities API'),
+  countries: new CircuitBreaker('REST Countries API'),
+  advice: new CircuitBreaker('Advice Slip API'),
+  zipcode: new CircuitBreaker('Zipcode API'),
+  randomuser: new CircuitBreaker('Random User API'),
+  openlibrary: new CircuitBreaker('Open Library API'),
+  rickmorty: new CircuitBreaker('Rick and Morty API'),
 };

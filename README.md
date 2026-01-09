@@ -64,10 +64,10 @@ Traditional API:          PayPerAgent:
 
 ---
 
-## 💡 Innovation Highlights
+## 🌟 Features
 
-### 1️⃣ **First x402 Payment Gateway**
-- Pioneering implementation of x402 protocol for API payments
+- **25 Integrated APIs** with 53+ endpoints
+- **402 Payment Required** standard implementation of x402 protocol for API payments
 - Cryptographic payment verification without smart contracts
 - Recipient and token fields for flexible payment routing
 
@@ -127,7 +127,7 @@ const data = await client.getWeather({ city: 'London' });
 
 ## ✨ Features
 
-### ✅ **27 Live Endpoints Across 14 FREE APIs** (Production Ready!)
+### ✅ **27 Live Endpoints Across 25 FREE APIs** (Production Ready!)
 
 #### **Original APIs**
 - 🌤️ **Weather** - OpenWeatherMap data (0.001 USDC)
@@ -146,6 +146,14 @@ const data = await client.getWeather({ city: 'London' });
 - 🔥 **HackerNews** - Top stories (0.001 USDC)
 - 🐕 **Random Dog** - Dog images (0.0005 USDC)
 - 🐱 **Random Cat** - Cat images (0.0005 USDC)
+- 🐈 **Cat Facts** - Random cat facts (0.0005 USDC)
+- 🏫 **Universities** - Search universities worldwide (0.001 USDC)
+- 🌎 **Countries** - REST Countries data (flags, capitals, etc.) (0.001 USDC)
+- 💡 **Advice Slip** - Random advice and wisdom (0.0005 USDC)
+- 📦 **Zipcode Lookup** - Location data by postal code (0.001 USDC)
+- 👥 **Random User** - Generate random user profiles (0.001 USDC)
+- 📚 **Open Library** - Book search and ISBN lookup (0.001 USDC)
+- 🚀 **Rick & Morty** - Characters and episodes (0.001 USDC)
 
 #### **🔥 SKALE Ecosystem Integrations** (NEW!)
 - 💱 **Ruby.Exchange** - DEX prices, liquidity, swap quotes (0.001-0.002 USDC)
