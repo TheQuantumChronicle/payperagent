@@ -45,7 +45,7 @@ const useCases = [
   {
     icon: <Sparkles className="w-6 h-6" />,
     title: 'Custom Agents',
-    description: 'Mix and match 29+ APIs to build anything you can imagine.',
+    description: 'Mix and match 25+ APIs to build anything you can imagine.',
     apis: ['Any Combination'],
     cost: 'Flexible',
     gradient: 'from-white to-gray-400'

@@ -25,7 +25,7 @@ export default function Hero() {
             Agentic x402 API Gateway
           </p>
           <p className="text-sm text-gray-600 mb-8 max-w-xl mx-auto px-4">
-            Pay-per-use access to 29 APIs • Zero-knowledge payments • No subscriptions
+            Pay-per-use access to 25 APIs • Zero-knowledge payments • No subscriptions
           </p>
           <div className="mb-8 md:mb-12">
             <RotatingCapabilities />
@@ -61,7 +61,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto"
         >
-          <StatCard icon={<Zap />} value="29" label="APIs" />
+          <StatCard icon={<Zap />} value="25" label="APIs" />
           <StatCard icon={<Shield />} value="100%" label="Uptime" />
           <StatCard icon={<Coins />} value="$0" label="Gas Fees" />
           <StatCard icon={<TrendingUp />} value="3" label="SKALE Chains" />

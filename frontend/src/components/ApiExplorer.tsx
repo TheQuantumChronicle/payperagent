@@ -85,18 +85,148 @@ const apis: API[] = [
     response: '{"posts":[{"title":"Bitcoin hits new high","upvotes":5000}]}'
   },
   {
-    id: 'perplexity',
-    name: 'Perplexity AI',
-    category: 'AI',
-    description: 'AI-powered web search and answers',
-    endpoint: '/api/perplexity',
-    price: '0.010',
-    example: 'curl -H "X-PAYMENT: <sig>" -d "query=What is SKALE?" "https://payperagent.xyz/api/perplexity"',
-    response: '{"answer":"SKALE is a zero-gas blockchain network..."}'
+    id: 'jokes',
+    name: 'Jokes API',
+    category: 'Fun',
+    description: 'Random jokes by type',
+    endpoint: '/api/jokes/random',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/jokes/random"',
+    response: '{"joke":"Why do programmers prefer dark mode?","punchline":"Because light attracts bugs!"}'
+  },
+  {
+    id: 'bored',
+    name: 'Bored API',
+    category: 'Fun',
+    description: 'Activity suggestions when bored',
+    endpoint: '/api/bored/activity',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/bored/activity"',
+    response: '{"activity":"Learn a new programming language","type":"education"}'
+  },
+  {
+    id: 'name',
+    name: 'Name Predictors',
+    category: 'Data',
+    description: 'Predict age, gender, nationality from names',
+    endpoint: '/api/name/all?name=John',
+    price: '0.001',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/name/all?name=John"',
+    response: '{"age":45,"gender":"male","nationality":"US"}'
+  },
+  {
+    id: 'catfacts',
+    name: 'Cat Facts',
+    category: 'Fun',
+    description: 'Random cat facts',
+    endpoint: '/api/catfacts/random',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/catfacts/random"',
+    response: '{"fact":"Cats sleep 70% of their lives"}'
+  },
+  {
+    id: 'universities',
+    name: 'Universities',
+    category: 'Knowledge',
+    description: 'Search universities worldwide',
+    endpoint: '/api/universities/search?country=United+States',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/universities/search?country=United+States"',
+    response: '{"universities":[{"name":"MIT","country":"United States"}]}'
+  },
+  {
+    id: 'countries',
+    name: 'REST Countries',
+    category: 'Data',
+    description: 'Country data, flags, capitals',
+    endpoint: '/api/countries/name/Canada',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/countries/name/Canada"',
+    response: '{"name":"Canada","capital":"Ottawa","population":41651653}'
+  },
+  {
+    id: 'advice',
+    name: 'Advice Slip',
+    category: 'Fun',
+    description: 'Random advice and wisdom',
+    endpoint: '/api/advice/random',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/advice/random"',
+    response: '{"advice":"Never run with scissors"}'
+  },
+  {
+    id: 'zipcode',
+    name: 'Zipcode Lookup',
+    category: 'Data',
+    description: 'Location data by postal code',
+    endpoint: '/api/zipcode/us/90210',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/zipcode/us/90210"',
+    response: '{"place":"Beverly Hills","state":"California"}'
+  },
+  {
+    id: 'randomuser',
+    name: 'Random User',
+    category: 'Data',
+    description: 'Generate random user profiles',
+    endpoint: '/api/randomuser?count=1',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/randomuser?count=1"',
+    response: '{"name":"John Doe","email":"john@example.com","city":"New York"}'
+  },
+  {
+    id: 'books',
+    name: 'Open Library',
+    category: 'Knowledge',
+    description: 'Book search and ISBN lookup',
+    endpoint: '/api/books/search?q=javascript',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/books/search?q=javascript"',
+    response: '{"books":[{"title":"JavaScript: The Good Parts","author":"Douglas Crockford"}]}'
+  },
+  {
+    id: 'rickmorty',
+    name: 'Rick & Morty',
+    category: 'Fun',
+    description: 'Characters and episodes',
+    endpoint: '/api/rickmorty/character/1',
+    price: '0.0005',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/rickmorty/character/1"',
+    response: '{"name":"Rick Sanchez","status":"Alive","species":"Human"}'
+  },
+  {
+    id: 'ruby',
+    name: 'Ruby.Exchange',
+    category: 'SKALE',
+    description: 'DEX prices, liquidity, swap quotes',
+    endpoint: '/api/ruby/price?token=SKL',
+    price: '0.001',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/ruby/price?token=SKL"',
+    response: '{"token":"SKL","price":"0.05","volume24h":"1.2M"}'
+  },
+  {
+    id: 'chirper',
+    name: 'Chirper.ai',
+    category: 'SKALE',
+    description: 'AI agent sentiment and trending topics',
+    endpoint: '/api/chirper/trending',
+    price: '0.003',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/chirper/trending"',
+    response: '{"trending":["AI","SKALE","Web3"]}'
+  },
+  {
+    id: 'gaming',
+    name: 'Gaming APIs',
+    category: 'SKALE',
+    description: 'CryptoBlades, BitHotel stats',
+    endpoint: '/api/gaming/overview',
+    price: '0.002',
+    example: 'curl -H "X-PAYMENT: <sig>" "https://payperagent.xyz/api/gaming/overview"',
+    response: '{"games":[{"name":"CryptoBlades","players":50000}]}'
   }
 ];
 
-const categories = ['All', 'Finance', 'Data', 'Knowledge', 'Developer', 'Media', 'Social', 'AI'];
+const categories = ['All', 'Finance', 'Data', 'Knowledge', 'Developer', 'Media', 'Social', 'Fun', 'SKALE'];
 
 export default function ApiExplorer() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -133,7 +263,7 @@ export default function ApiExplorer() {
               Explore Functionality
             </h2>
             <p className="text-gray-400 text-lg max-w-xl">
-              Access 29+ decentralized endpoints. Filter by category, search by utility, and integrate in seconds.
+              Access 25+ decentralized endpoints. Filter by category, search by utility, and integrate in seconds.
             </p>
           </div>
 

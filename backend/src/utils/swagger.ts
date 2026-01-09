@@ -6,8 +6,8 @@ export const swaggerDocument = {
   openapi: '3.0.0',
   info: {
     title: 'PayPerAgent API Gateway',
-    version: '0.1.0',
-    description: '⚡ Zero Gas Fee API Gateway for AI Agents on SKALE Network',
+    version: '0.2.0',
+    description: '⚡ Zero Gas Fee API Gateway for AI Agents on SKALE Network | 25 APIs, 53 Endpoints',
     contact: {
       name: 'PayPerAgent Support',
       url: 'https://github.com/payperagent',
@@ -45,8 +45,16 @@ export const swaggerDocument = {
       description: 'News articles and headlines',
     },
     {
-      name: 'AI',
-      description: 'AI-powered search and chat',
+      name: 'Fun',
+      description: 'Entertainment and fun APIs',
+    },
+    {
+      name: 'Knowledge',
+      description: 'Educational and reference APIs',
+    },
+    {
+      name: 'Data',
+      description: 'Data lookup and information APIs',
     },
     {
       name: 'SKALE Ecosystem',

@@ -66,7 +66,7 @@ export default function LiveData() {
               title="Network Status"
               value={isLoading ? '...' : (health?.status || '...')}
               subtitle={isLoading ? 'Loading...' : `Uptime: ${health?.uptime?.formatted || '...'}`}
-              detail={`APIs: ${health?.apis || 29} endpoints`}
+              detail={`APIs: ${health?.apis || 25} endpoints`}
               index={1}
               isLoading={isLoading}
             />
@@ -74,9 +74,9 @@ export default function LiveData() {
             <DataCard
               icon={<TrendingUp className="w-6 h-6" />}
               title="Total APIs"
-              value="29"
+              value="25"
               subtitle="Live Endpoints"
-              detail="16 integrated services"
+              detail="25 integrated services"
               index={2}
               isLoading={false}
             />

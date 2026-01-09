@@ -4,7 +4,7 @@
 
 [![Built with SKALE](https://img.shields.io/badge/Built%20on-SKALE%20Network-blueviolet)](https://skale.space)
 [![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-success)](https://payperagent.xyz)
-[![Tests Passing](https://img.shields.io/badge/Tests-17%2F17%20Passing-brightgreen)](https://payperagent.xyz)
+[![Tests Passing](https://img.shields.io/badge/Tests-40%2F40%20Passing-brightgreen)](https://payperagent.xyz)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
 🌐 **Live Demo:** [payperagent.xyz](https://payperagent.xyz)
@@ -19,7 +19,7 @@
 - ✅ Agent-to-agent payment infrastructure
 - ✅ Zero gas fees for end users (SKALE Network)
 - ✅ Cryptographic payment verification
-- ✅ 10+ API integrations with enhanced data
+- ✅ 25 API integrations with enhanced data
 - ✅ Production-ready with comprehensive testing
 
 ### 🏆 Why This Matters
@@ -46,12 +46,12 @@ Traditional API:          PayPerAgent:
 **What Was Built:**
 - Full-stack payment gateway (Backend + Frontend)
 - x402 protocol implementation with cryptographic verification
-- 14 FREE API integrations (Weather, Crypto, News, Wikipedia, CoinGecko, Reddit, GitHub, Exchange, Utilities, Ruby.Exchange, Chirper.ai, Gaming)
+- 25 FREE API integrations (Weather, Crypto, News, CoinGecko, Wikipedia, Reddit, GitHub, Exchange, Utilities, Jokes, Bored, Name Predictors, Cat Facts, Universities, Countries, Advice, Zipcode, Random User, Open Library, Rick & Morty, Ruby.Exchange, Chirper.ai, Gaming)
 - SKALE Network integration (zero gas fees)
 - PostgreSQL analytics and caching
 - WebSocket real-time updates
 - Circuit breakers for resilience
-- Comprehensive test suite (17/17 passing)
+- Comprehensive test suite (40/40 passing)
 - Production deployment on Railway
 
 **Tech Stack:**

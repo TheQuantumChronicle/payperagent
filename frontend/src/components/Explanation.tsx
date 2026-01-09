@@ -24,7 +24,7 @@ export default function Explanation() {
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
             PayPerAgent is a blockchain-powered API gateway that lets AI agents and developers 
-            access 29 APIs with <span className="text-void-300">microtransactions</span>. No subscriptions. 
+            access 25 APIs with <span className="text-void-300">microtransactions</span>. No subscriptions. 
             No API keys. Just pay for what you use.
           </p>
         </motion.div>
