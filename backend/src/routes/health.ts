@@ -40,7 +40,7 @@ healthRouter.get('/', async (_req, res) => {
   const health = {
     status,
     service: 'PayPerAgent API Gateway',
-    version: '0.1.0',
+    version: '1.0.0',
     timestamp: new Date().toISOString(),
     uptime: {
       seconds: Math.floor(uptime),
@@ -70,6 +70,7 @@ healthRouter.get('/', async (_req, res) => {
       chainId: 37084624,
       gasFees: 'ZERO',
     },
+    environment: process.env.NODE_ENV || 'development',
     ...(issues.length > 0 && { issues }),
   };
   

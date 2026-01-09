@@ -43,12 +43,16 @@ export const corsOptions: CorsOptions = {
     'X-Payment',
     'X-Agent-ID',
     'X-Request-ID',
+    'X-Correlation-ID',
   ],
   exposedHeaders: [
     'X-RateLimit-Limit',
     'X-RateLimit-Remaining',
     'X-RateLimit-Reset',
     'Retry-After',
+    'X-Response-Time',
+    'X-API-Version',
+    'X-Correlation-ID',
   ],
-  maxAge: 86400, // 24 hours
+  maxAge: 86400, // Cache preflight requests for 24 hours
 };

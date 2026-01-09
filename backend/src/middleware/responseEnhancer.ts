@@ -39,5 +39,29 @@ export const rateLimitHeaders = (_req: Request, res: Response, next: NextFunctio
   res.setHeader('X-RateLimit-Window', '1m');
   res.setHeader('X-RateLimit-Policy', '100 per minute, 1000 per day');
   
+  // Add API version
+  res.setHeader('X-API-Version', '1.0.0');
+  
+  // Add response time tracking - must be done before headers are sent
+  const start = Date.now();
+  const originalSend = res.send.bind(res);
+  const originalJson = res.json.bind(res);
+  
+  res.send = function(body: any): Response {
+    if (!res.headersSent) {
+      const duration = Date.now() - start;
+      res.setHeader('X-Response-Time', `${duration}ms`);
+    }
+    return originalSend(body);
+  };
+  
+  res.json = function(body: any): Response {
+    if (!res.headersSent) {
+      const duration = Date.now() - start;
+      res.setHeader('X-Response-Time', `${duration}ms`);
+    }
+    return originalJson(body);
+  };
+  
   next();
 };

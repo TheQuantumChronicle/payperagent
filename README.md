@@ -1,10 +1,14 @@
 # PayPerAgent 🚀
 
+**v1.0.0 - Production Ready**
+
 **Zero Gas Fee API Gateway for AI Agents on SKALE Network**
 
 🌐 **Live at [payperagent.xyz](https://payperagent.xyz)**
 
 PayPerAgent enables AI agents to discover and pay for premium APIs using SKALE's zero-gas x402 payment protocol. Pay only for what you use - no subscriptions, no gas fees, just micro-transactions.
+
+**✅ Production Status:** 98.9% success rate | 17/17 tests passing | 20+ hours uptime
 
 ## 🎯 Vision
 
@@ -48,7 +52,7 @@ Building the infrastructure for the Internet of Agents - where AI agents can aut
 
 ### 🎯 **Core Features**
 - ✅ **Zero Gas Fees** - SKALE Network integration
-- ✅ **x402 Protocol** - HTTP payment verification
+- ✅ **x402 Protocol** - HTTP payment verification with recipient & token fields
 - ✅ **Coinbase AgentKit Compatible** - Official x402 implementation support
 - ✅ **LangChain Integration** - One-line integration for AI agents
 - ✅ **Micro-Transactions** - Pay per request (0.0005-0.010 USDC)
@@ -61,14 +65,18 @@ Building the infrastructure for the Internet of Agents - where AI agents can aut
 - ✅ **PostgreSQL** - Persistent caching & analytics
 - ✅ **Rate Limiting** - 100/min, 1000/day per agent
 - ✅ **Beautiful Console** - Color-coded logging with ASCII art
-- ✅ **Enhanced Error Handling** - Custom error classes with proper status codes
+- ✅ **Enhanced Error Handling** - Correlation IDs, timestamps, structured errors
 - ✅ **Request Validation** - Schema-based input validation
 - ✅ **Response Compression** - Gzip for performance
+- ✅ **Response Time Headers** - X-Response-Time tracking for debugging
+- ✅ **API Versioning** - X-API-Version headers for future compatibility
+- ✅ **CORS Preflight Caching** - 24-hour cache for OPTIONS requests
 - ✅ **Health Monitoring** - Circuit breaker status, memory usage, dependency checks
 - ✅ **API Documentation** - Interactive Swagger UI at `/docs`
 - ✅ **System Management** - Circuit breaker controls, performance stats, metrics
 - ✅ **SKALE Ecosystem** - Deep integration with 4 SKALE Hubs (Europa, Nebula, Calypso, Chirper)
 - ✅ **Analytics Dashboard** - Real-time network activity and agent leaderboard
+- ✅ **Automated Testing** - Comprehensive test suite with 17 production tests
 
 ## 🛠️ Tech Stack
 
@@ -153,8 +161,40 @@ payperagent/
 # Test the live API
 curl https://payperagent.xyz/health
 
-# Get crypto prices (requires payment)
-curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/crypto?symbol=BTCUSDT"
+# Get API info and pricing
+curl https://payperagent.xyz/api
+
+# Test payment flow (get 402 with payment details)
+curl https://payperagent.xyz/api/weather?city=London
+
+# Make paid request (requires wallet & signature)
+curl -H "X-PAYMENT: <payment_json>" "https://payperagent.xyz/api/crypto?symbol=BTCUSDT"
+```
+
+### Using the SDK
+```typescript
+import { createClient } from '@payperagent/sdk';
+import { ethers } from 'ethers';
+
+const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!);
+const client = createClient({
+  gatewayUrl: 'https://payperagent.xyz',
+  wallet,
+  autoRetry: true // Automatically handle 402 payments
+});
+
+// SDK handles payment signing automatically!
+const weather = await client.getWeather({ city: 'London' });
+console.log(weather);
+```
+
+### Run Tests
+```bash
+# Test all production endpoints
+./test-production.sh
+
+# Test with real payments (requires test wallet)
+npx tsx test-real-payments.ts
 ```
 
 ### Documentation
@@ -167,7 +207,7 @@ curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/crypto?symbol=BTCU
 
 ## Roadmap
 
-### ✅ Completed
+### ✅ v1.0.0 Release (January 2026)
 - ✅ Core gateway with x402 payments
 - ✅ 16 API integrations (29 endpoints)
 - ✅ Coinbase AgentKit compatibility
@@ -184,15 +224,22 @@ curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/crypto?symbol=BTCU
 - ✅ Circuit breaker pattern for external API resilience
 - ✅ Performance monitoring with P50/P95/P99 latency tracking
 - ✅ WebSocket server for real-time updates (crypto, system metrics)
-- ✅ Enhanced error handling with custom error classes
+- ✅ Enhanced error handling with correlation IDs and timestamps
 - ✅ Request validation with schema-based validation
 - ✅ System management endpoints (circuit breakers, metrics, performance)
 - ✅ Interactive API documentation (Swagger UI)
 - ✅ Enhanced health checks with dependency monitoring
 - ✅ Intelligent cache optimization with service-specific TTLs
 - ✅ PostgreSQL caching & analytics
-- ✅ Comprehensive testing (100% success rate)
-- ✅ Automated test suite (backend + WebSocket)
+- ✅ Response time tracking (X-Response-Time headers)
+- ✅ API versioning headers (X-API-Version: 1.0.0)
+- ✅ CORS preflight caching (24-hour cache)
+- ✅ Complete TypeScript SDK example with 8 use cases
+- ✅ Quickstart guide for new developers
+- ✅ Automated test suite (17/17 tests passing)
+- ✅ Production deployment on Railway
+- ✅ Frontend served by backend with SPA fallback
+- ✅ Comprehensive testing (98.9% success rate)
 
 ### 🔄 In Progress
 - 🔄 TypeScript & Python SDKs

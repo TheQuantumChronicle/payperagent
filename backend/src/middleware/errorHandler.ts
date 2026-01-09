@@ -3,16 +3,19 @@ import { AppError, PaymentRequiredError, RateLimitError } from '../utils/errors'
 
 export const errorHandler = (
   err: Error | AppError,
-  _req: Request,
+  req: Request,
   res: Response,
   _next: NextFunction
 ) => {
-  // Log error details
+  // Log error details with correlation ID
+  const correlationId = req.headers['x-correlation-id'];
+  const logPrefix = correlationId ? `[${correlationId}]` : '';
+  
   if (err instanceof AppError && !err.isOperational) {
-    console.error('🔴 CRITICAL ERROR:', err.message);
+    console.error(`🔴 CRITICAL ERROR ${logPrefix}:`, err.message);
     console.error('Stack:', err.stack);
   } else {
-    console.error('⚠️  Error:', err.message);
+    console.error(`⚠️  Error ${logPrefix}:`, err.message);
     if (process.env.NODE_ENV === 'development') {
       console.error('Stack:', err.stack);
     }
@@ -25,6 +28,7 @@ export const errorHandler = (
       error: {
         message: err.message,
         code: err.code,
+        timestamp: new Date().toISOString(),
       },
     };
 
@@ -44,6 +48,11 @@ export const errorHandler = (
       response.error.stack = err.stack;
     }
 
+    // Add correlation ID to response
+    if (correlationId) {
+      response.correlationId = correlationId;
+    }
+
     return res.status(err.statusCode).json(response);
   }
 
@@ -54,7 +63,9 @@ export const errorHandler = (
     error: {
       message: err.message || 'Internal server error',
       code: 'INTERNAL_ERROR',
+      timestamp: new Date().toISOString(),
       ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
     },
+    ...(correlationId && { correlationId }),
   });
 };

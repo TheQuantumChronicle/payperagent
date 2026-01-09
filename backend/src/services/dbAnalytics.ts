@@ -66,7 +66,7 @@ class DatabaseAnalytics {
              AVG(response_time)::INTEGER as avg_response_time,
              MIN(response_time) as min_response_time,
              MAX(response_time) as max_response_time,
-             SUM(payment_amount) as total_revenue,
+             COALESCE(SUM(payment_amount), 0) as total_revenue,
              COUNT(DISTINCT agent_id) as unique_agents,
              COUNT(CASE WHEN cached = true THEN 1 END) as cached_requests
            FROM analytics 

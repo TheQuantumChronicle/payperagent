@@ -49,7 +49,7 @@ gatewayRouter.use('/reputation', reputationRouter);
 gatewayRouter.get('/', (_req, res) => {
   const response = {
     service: 'PayPerAgent API Gateway',
-    version: '0.1.0',
+    version: '1.0.0',
     tagline: '⚡ Zero Gas Fee API Gateway for AI Agents',
     description: 'Pay-per-use API gateway for AI agents on SKALE Network',
     network: 'SKALE Nebula Testnet',

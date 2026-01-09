@@ -1,7 +1,7 @@
 {
   "name": "payperagent-backend",
-  "version": "0.1.0",
-  "description": "API Gateway for AI Agents on SKALE Network",
+  "version": "1.0.0",
+  "description": "Zero Gas Fee API Gateway for AI Agents on SKALE Network",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",

@@ -22,6 +22,8 @@ const createPaymentMiddleware = (options: X402Options) => {
           network: options.network || skaleConfig.network,
           chainId: skaleConfig.chainId,
           amount: options.maxAmountRequired,
+          token: 'USDC',
+          recipient: process.env.PAYMENT_RECIPIENT_ADDRESS || '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
           currency: 'USDC',
           description: options.description,
           facilitatorURL: skaleConfig.facilitatorUrl,
@@ -44,7 +46,10 @@ const createPaymentMiddleware = (options: X402Options) => {
           error: 'Invalid payment proof',
           payment: {
             network: options.network || skaleConfig.network,
+            chainId: skaleConfig.chainId,
             amount: options.maxAmountRequired,
+            token: 'USDC',
+            recipient: process.env.PAYMENT_RECIPIENT_ADDRESS || '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
             description: options.description,
           },
         });
