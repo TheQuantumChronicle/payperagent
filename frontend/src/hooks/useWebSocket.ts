@@ -28,7 +28,7 @@ export function useWebSocket({
   const [lastMessage, setLastMessage] = useState<WebSocketMessage | null>(null);
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectAttemptsRef = useRef(0);
-  const reconnectTimeoutRef = useRef<number>();
+  const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const messageQueueRef = useRef<any[]>([]);
 
   const connect = useCallback(() => {
