@@ -21,7 +21,7 @@ echo -e "${BLUE}║   Testing: $API_URL${NC}"
 echo -e "${BLUE}╚════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
-# Test function
+# Test function with retry logic
 test_endpoint() {
     local name="$1"
     local url="$2"
@@ -31,9 +31,23 @@ test_endpoint() {
     TOTAL_TESTS=$((TOTAL_TESTS + 1))
     echo -n "Testing: $name... "
     
-    response=$(curl -s -w "\n%{http_code}" "$url")
-    status_code=$(echo "$response" | tail -n1)
-    body=$(echo "$response" | sed '$d')
+    # Try up to 2 times (first might be cold start)
+    local max_attempts=2
+    local attempt=1
+    local status_code="000"
+    
+    while [ $attempt -le $max_attempts ] && [ "$status_code" = "000" ]; do
+        response=$(curl -s -w "\n%{http_code}" --max-time 45 --connect-timeout 10 "$url")
+        status_code=$(echo "$response" | tail -n1)
+        body=$(echo "$response" | sed '$d')
+        
+        if [ "$status_code" = "000" ] && [ $attempt -lt $max_attempts ]; then
+            sleep 2
+            attempt=$((attempt + 1))
+        else
+            break
+        fi
+    done
     
     if [ "$status_code" = "$expected_status" ]; then
         if [ -n "$check_field" ]; then
@@ -52,6 +66,9 @@ test_endpoint() {
         echo -e "${RED}✗ FAIL${NC} (expected $expected_status, got $status_code)"
         FAILED_TESTS=$((FAILED_TESTS + 1))
     fi
+    
+    # Small delay between tests to avoid rate limiting
+    sleep 0.5
 }
 
 echo -e "${YELLOW}━━━ System Health Tests ━━━${NC}"
