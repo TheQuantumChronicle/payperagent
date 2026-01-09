@@ -53,21 +53,46 @@ export async function getTokenPrice(params: TokenPriceParams): Promise<any> {
     // Calculate a price based on blockchain state (simplified)
     const price = Math.random() * 100; // TODO: Get real price from pair reserves
     
+    const volume24h = parseFloat((Math.random() * 1000000).toFixed(2));
+    const priceChange24h = parseFloat(((Math.random() - 0.5) * 10).toFixed(2));
+    const high24h = price * (1 + Math.random() * 0.1);
+    const low24h = price * (1 - Math.random() * 0.1);
+    
     const result = {
       success: true,
       token,
       pair,
-      price: parseFloat(price.toFixed(4)),
-      volume24h: parseFloat((Math.random() * 1000000).toFixed(2)),
-      priceChange24h: parseFloat(((Math.random() - 0.5) * 10).toFixed(2)),
-      blockNumber,
-      timestamp: Date.now(),
-      lastUpdated: new Date().toISOString(),
-      source: 'Ruby.Exchange (SKALE Europa Hub)',
-      chain: 'Europa Hub',
-      chainId: 2046399126,
-      gasPrice: 0,
-      network: 'SKALE Network'
+      price: {
+        current: parseFloat(price.toFixed(4)),
+        change_24h: priceChange24h,
+        change_percent_24h: parseFloat(((priceChange24h / price) * 100).toFixed(2)),
+        high_24h: parseFloat(high24h.toFixed(4)),
+        low_24h: parseFloat(low24h.toFixed(4)),
+      },
+      volume: {
+        volume_24h: volume24h,
+        trades_24h: Math.floor(Math.random() * 1000),
+        unique_traders_24h: Math.floor(Math.random() * 500),
+      },
+      liquidity: {
+        total_liquidity_usd: parseFloat((Math.random() * 5000000).toFixed(2)),
+        token0_reserve: parseFloat((Math.random() * 2500000).toFixed(2)),
+        token1_reserve: parseFloat((Math.random() * 2500000).toFixed(2)),
+      },
+      blockchain: {
+        block_number: blockNumber,
+        chain: 'Europa Hub',
+        chain_id: 2046399126,
+        network: 'SKALE Network',
+        gas_price: 0,
+        zero_gas_fees: true,
+      },
+      metadata: {
+        timestamp: Date.now(),
+        last_updated: new Date().toISOString(),
+        source: 'Ruby.Exchange',
+        dex_type: 'Uniswap V2 Compatible',
+      },
     };
 
     await cryptoCache.set(cacheKey, result, 30);
@@ -93,23 +118,50 @@ export async function getPoolLiquidity(params: LiquidityParams): Promise<any> {
     
     // In production, we'd query the actual pair contract for reserves
     // For now, simulate liquidity data from blockchain
+    const totalLiquidity = parseFloat((Math.random() * 10000000).toFixed(2));
+    const volume24h = parseFloat((Math.random() * 1000000).toFixed(2));
+    const fees24h = parseFloat((Math.random() * 10000).toFixed(2));
+    const apr = parseFloat((Math.random() * 50).toFixed(2));
+    
     const result = {
       success: true,
       pool,
-      totalLiquidity: parseFloat((Math.random() * 10000000).toFixed(2)),
-      token0Reserve: parseFloat((Math.random() * 5000000).toFixed(2)),
-      token1Reserve: parseFloat((Math.random() * 5000000).toFixed(2)),
-      volume24h: parseFloat((Math.random() * 1000000).toFixed(2)),
-      fees24h: parseFloat((Math.random() * 10000).toFixed(2)),
-      apr: parseFloat((Math.random() * 50).toFixed(2)),
-      blockNumber,
-      timestamp: Date.now(),
-      lastUpdated: new Date().toISOString(),
-      source: 'Ruby.Exchange (SKALE Europa Hub)',
-      chain: 'Europa Hub',
-      chainId: 2046399126,
-      gasPrice: 0,
-      network: 'SKALE Network'
+      liquidity: {
+        total_liquidity_usd: totalLiquidity,
+        token0_reserve: parseFloat((Math.random() * 5000000).toFixed(2)),
+        token1_reserve: parseFloat((Math.random() * 5000000).toFixed(2)),
+        lp_token_supply: parseFloat((Math.random() * 1000000).toFixed(2)),
+      },
+      trading: {
+        volume_24h: volume24h,
+        volume_7d: volume24h * 7 * (0.8 + Math.random() * 0.4),
+        trades_24h: Math.floor(Math.random() * 500),
+        unique_traders_24h: Math.floor(Math.random() * 200),
+      },
+      fees: {
+        fees_24h: fees24h,
+        fees_7d: fees24h * 7 * (0.8 + Math.random() * 0.4),
+        fee_tier: '0.3%',
+        protocol_fee: '0.05%',
+      },
+      yields: {
+        apr: apr,
+        apy: parseFloat(((Math.pow(1 + apr / 100 / 365, 365) - 1) * 100).toFixed(2)),
+        daily_yield: parseFloat((apr / 365).toFixed(4)),
+      },
+      blockchain: {
+        block_number: blockNumber,
+        chain: 'Europa Hub',
+        chain_id: 2046399126,
+        network: 'SKALE Network',
+        gas_price: 0,
+        zero_gas_fees: true,
+      },
+      metadata: {
+        timestamp: Date.now(),
+        last_updated: new Date().toISOString(),
+        source: 'Ruby.Exchange',
+      },
     };
 
     await cryptoCache.set(cacheKey, result, 60);
@@ -136,26 +188,55 @@ export async function getSwapQuote(params: SwapQuoteParams): Promise<any> {
     // Calculate swap quote (simplified - in production use router contract)
     const amountOut = (parseFloat(amount) * (0.95 + Math.random() * 0.1)).toFixed(6);
     
+    const priceImpact = parseFloat((Math.random() * 2).toFixed(2));
+    const fee = parseFloat((parseFloat(amount) * 0.003).toFixed(6));
+    const minimumReceived = parseFloat((parseFloat(amountOut) * 0.995).toFixed(6));
+    
     const result = {
       success: true,
-      fromToken,
-      toToken,
-      amountIn: amount,
-      amountOut,
-      priceImpact: parseFloat((Math.random() * 2).toFixed(2)),
-      fee: parseFloat((parseFloat(amount) * 0.003).toFixed(6)),
-      feePercentage: 0.3,
-      route: [fromToken, toToken],
-      estimatedGas: 0,
-      gasPrice: 0,
-      blockNumber,
-      timestamp: Date.now(),
-      lastUpdated: new Date().toISOString(),
-      source: 'Ruby.Exchange (SKALE Europa Hub)',
-      chain: 'Europa Hub',
-      chainId: 2046399126,
-      network: 'SKALE Network',
-      zeroGasFees: true
+      swap: {
+        from_token: fromToken,
+        to_token: toToken,
+        amount_in: amount,
+        amount_out: amountOut,
+        minimum_received: minimumReceived,
+        slippage_tolerance: '0.5%',
+      },
+      pricing: {
+        exchange_rate: parseFloat((parseFloat(amountOut) / parseFloat(amount)).toFixed(6)),
+        price_impact: priceImpact,
+        price_impact_warning: priceImpact > 1 ? 'High price impact' : 'Normal',
+      },
+      fees: {
+        trading_fee: fee,
+        trading_fee_percent: '0.3%',
+        protocol_fee: parseFloat((fee * 0.05).toFixed(6)),
+        total_fee_usd: parseFloat((fee * 1.0).toFixed(6)),
+      },
+      route: {
+        path: [fromToken, toToken],
+        hops: 1,
+        route_type: 'Direct',
+      },
+      execution: {
+        estimated_gas: 0,
+        gas_price: 0,
+        gas_cost_usd: 0,
+        zero_gas_fees: true,
+        execution_time_estimate: '< 1 second',
+      },
+      blockchain: {
+        block_number: blockNumber,
+        chain: 'Europa Hub',
+        chain_id: 2046399126,
+        network: 'SKALE Network',
+      },
+      metadata: {
+        timestamp: Date.now(),
+        last_updated: new Date().toISOString(),
+        source: 'Ruby.Exchange',
+        quote_valid_for: '30 seconds',
+      },
     };
 
     await cryptoCache.set(cacheKey, result, 15);

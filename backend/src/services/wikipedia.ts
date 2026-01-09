@@ -48,6 +48,11 @@ export async function searchWikipedia(params: WikipediaSearchParams): Promise<an
       query: searchQuery,
       results,
       count: results.length,
+      metadata: {
+        limit,
+        namespace: 0,
+        hasResults: results.length > 0,
+      },
       timestamp: new Date().toISOString(),
     };
 
@@ -94,11 +99,24 @@ export async function getWikipediaPage(params: WikipediaPageParams): Promise<any
     }
 
     const result = {
+      pageId: page.pageid,
       title: page.title,
       extract: page.extract,
       url: page.fullurl,
-      thumbnail: page.thumbnail?.source || null,
-      pageId: page.pageid,
+      canonicalurl: page.canonicalurl,
+      thumbnail: page.thumbnail ? {
+        source: page.thumbnail.source,
+        width: page.thumbnail.width,
+        height: page.thumbnail.height,
+      } : null,
+      pageimage: page.pageimage || null,
+      metadata: {
+        length: page.length,
+        touched: page.touched,
+        lastrevid: page.lastrevid,
+        extractLength: page.extract?.length || 0,
+        hasImage: !!page.thumbnail,
+      },
       timestamp: new Date().toISOString(),
     };
 

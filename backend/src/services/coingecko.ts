@@ -43,20 +43,42 @@ export async function getCoinGeckoMarkets(params: CoinGeckoMarketParams = {}): P
         id: coin.id,
         symbol: coin.symbol.toUpperCase(),
         name: coin.name,
-        current_price: coin.current_price,
-        market_cap: coin.market_cap,
-        market_cap_rank: coin.market_cap_rank,
-        total_volume: coin.total_volume,
-        price_change_24h: coin.price_change_24h,
-        price_change_percentage_24h: coin.price_change_percentage_24h,
-        price_change_percentage_7d: coin.price_change_percentage_7d_in_currency,
-        circulating_supply: coin.circulating_supply,
-        total_supply: coin.total_supply,
-        ath: coin.ath,
-        ath_date: coin.ath_date,
         image: coin.image,
+        market_data: {
+          current_price: coin.current_price,
+          market_cap: coin.market_cap,
+          market_cap_rank: coin.market_cap_rank,
+          fully_diluted_valuation: coin.fully_diluted_valuation,
+          total_volume: coin.total_volume,
+          high_24h: coin.high_24h,
+          low_24h: coin.low_24h,
+        },
+        price_changes: {
+          price_change_24h: coin.price_change_24h,
+          price_change_percentage_24h: coin.price_change_percentage_24h,
+          price_change_percentage_7d: coin.price_change_percentage_7d_in_currency,
+        },
+        supply: {
+          circulating_supply: coin.circulating_supply,
+          total_supply: coin.total_supply,
+          max_supply: coin.max_supply,
+        },
+        all_time_high: {
+          price: coin.ath,
+          date: coin.ath_date,
+          change_percentage: coin.ath_change_percentage,
+        },
+        all_time_low: {
+          price: coin.atl,
+          date: coin.atl_date,
+          change_percentage: coin.atl_change_percentage,
+        },
+        last_updated: coin.last_updated,
       })),
       vs_currency,
+      page,
+      per_page,
+      total_results: response.data.length,
       timestamp: new Date().toISOString(),
     };
 
@@ -88,13 +110,19 @@ export async function getCoinGeckoPrice(coinId: string, vs_currency: string = 'u
       timeout: 10000,
     });
 
+    const coinData = response.data[coinId];
     const result = {
       coin: coinId,
-      price: response.data[coinId][vs_currency],
-      change_24h: response.data[coinId][`${vs_currency}_24h_change`],
-      volume_24h: response.data[coinId][`${vs_currency}_24h_vol`],
-      market_cap: response.data[coinId][`${vs_currency}_market_cap`],
       vs_currency,
+      price: {
+        current: coinData[vs_currency],
+        change_24h: coinData[`${vs_currency}_24h_change`],
+        change_percentage_24h: ((coinData[`${vs_currency}_24h_change`] / coinData[vs_currency]) * 100).toFixed(2),
+      },
+      market_data: {
+        volume_24h: coinData[`${vs_currency}_24h_vol`],
+        market_cap: coinData[`${vs_currency}_market_cap`],
+      },
       timestamp: new Date().toISOString(),
     };
 

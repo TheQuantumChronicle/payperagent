@@ -52,18 +52,43 @@ export const getWeatherData = async (params: WeatherParams) => {
     const weatherData = {
       location: response.data.name,
       country: response.data.sys.country,
-      temperature: response.data.main.temp,
-      feels_like: response.data.main.feels_like,
-      humidity: response.data.main.humidity,
-      pressure: response.data.main.pressure,
-      weather: response.data.weather[0].main,
-      description: response.data.weather[0].description,
-      wind_speed: response.data.wind.speed,
-      clouds: response.data.clouds.all,
+      timezone: response.data.timezone,
       coordinates: {
         lat: response.data.coord.lat,
         lon: response.data.coord.lon,
       },
+      current: {
+        temperature: response.data.main.temp,
+        feels_like: response.data.main.feels_like,
+        temp_min: response.data.main.temp_min,
+        temp_max: response.data.main.temp_max,
+        pressure: response.data.main.pressure,
+        humidity: response.data.main.humidity,
+        sea_level: response.data.main.sea_level,
+        ground_level: response.data.main.grnd_level,
+      },
+      weather: {
+        main: response.data.weather[0].main,
+        description: response.data.weather[0].description,
+        icon: response.data.weather[0].icon,
+        id: response.data.weather[0].id,
+      },
+      wind: {
+        speed: response.data.wind.speed,
+        deg: response.data.wind.deg,
+        gust: response.data.wind.gust,
+      },
+      clouds: {
+        all: response.data.clouds.all,
+      },
+      visibility: response.data.visibility,
+      rain: response.data.rain,
+      snow: response.data.snow,
+      sun: {
+        sunrise: new Date(response.data.sys.sunrise * 1000).toISOString(),
+        sunset: new Date(response.data.sys.sunset * 1000).toISOString(),
+      },
+      dt: new Date(response.data.dt * 1000).toISOString(),
     };
     
     weatherCache.set(cacheKey, weatherData);

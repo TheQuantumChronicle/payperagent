@@ -88,10 +88,23 @@ export async function searchPerplexity(params: PerplexityRequest): Promise<any> 
       )
     );
 
+    const choice = response.data.choices[0];
     const result = {
-      answer: response.data.choices[0].message.content,
+      id: response.data.id,
+      answer: choice.message.content,
       model: response.data.model,
-      usage: response.data.usage,
+      finish_reason: choice.finish_reason,
+      usage: {
+        prompt_tokens: response.data.usage.prompt_tokens,
+        completion_tokens: response.data.usage.completion_tokens,
+        total_tokens: response.data.usage.total_tokens,
+      },
+      metadata: {
+        query_length: query.length,
+        answer_length: choice.message.content.length,
+        max_tokens_requested: max_tokens,
+        tokens_used_percentage: ((response.data.usage.total_tokens / max_tokens) * 100).toFixed(2),
+      },
       timestamp: new Date().toISOString(),
     };
 

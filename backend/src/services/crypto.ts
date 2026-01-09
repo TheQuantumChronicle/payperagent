@@ -54,11 +54,26 @@ export const getCryptoPrice = async (params: CryptoParams) => {
       return {
         symbol,
         price: parseFloat(tickerResponse.data.price),
+        priceChange: parseFloat(statsResponse.data.priceChange),
         priceChangePercent: parseFloat(statsResponse.data.priceChangePercent),
+        weightedAvgPrice: parseFloat(statsResponse.data.weightedAvgPrice),
+        prevClosePrice: parseFloat(statsResponse.data.prevClosePrice),
+        lastPrice: parseFloat(statsResponse.data.lastPrice),
+        lastQty: parseFloat(statsResponse.data.lastQty),
+        bidPrice: parseFloat(statsResponse.data.bidPrice),
+        bidQty: parseFloat(statsResponse.data.bidQty),
+        askPrice: parseFloat(statsResponse.data.askPrice),
+        askQty: parseFloat(statsResponse.data.askQty),
+        openPrice: parseFloat(statsResponse.data.openPrice),
         high24h: parseFloat(statsResponse.data.highPrice),
         low24h: parseFloat(statsResponse.data.lowPrice),
         volume24h: parseFloat(statsResponse.data.volume),
         quoteVolume24h: parseFloat(statsResponse.data.quoteVolume),
+        openTime: new Date(statsResponse.data.openTime).toISOString(),
+        closeTime: new Date(statsResponse.data.closeTime).toISOString(),
+        firstId: statsResponse.data.firstId,
+        lastId: statsResponse.data.lastId,
+        count: statsResponse.data.count,
       };
     });
 
@@ -69,11 +84,37 @@ export const getCryptoPrice = async (params: CryptoParams) => {
     results.forEach((result) => {
       const baseCurrency = result.symbol.replace('USDT', '').toLowerCase();
       formattedData[baseCurrency] = {
+        symbol: result.symbol,
+        price: {
+          current: result.price,
+          change_24h: result.priceChange,
+          change_percent_24h: result.priceChangePercent,
+          high_24h: result.high24h,
+          low_24h: result.low24h,
+          open: result.openPrice,
+          prev_close: result.prevClosePrice,
+          weighted_avg: result.weightedAvgPrice,
+        },
+        orderbook: {
+          bid_price: result.bidPrice,
+          bid_qty: result.bidQty,
+          ask_price: result.askPrice,
+          ask_qty: result.askQty,
+          spread: result.askPrice - result.bidPrice,
+          spread_percent: ((result.askPrice - result.bidPrice) / result.bidPrice * 100).toFixed(4),
+        },
+        volume: {
+          base_24h: result.volume24h,
+          quote_24h: result.quoteVolume24h,
+          last_trade_qty: result.lastQty,
+          trade_count_24h: result.count,
+        },
+        timestamps: {
+          open_time: result.openTime,
+          close_time: result.closeTime,
+        },
         usd: result.price,
         usd_24h_change: result.priceChangePercent,
-        usd_24h_high: result.high24h,
-        usd_24h_low: result.low24h,
-        usd_24h_volume: result.quoteVolume24h,
       };
     });
 
