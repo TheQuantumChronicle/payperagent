@@ -68,47 +68,57 @@ const createPaymentMiddleware = (options: X402Options) => {
 // Verify payment proof
 async function verifyPayment(paymentProof: string, options: X402Options): Promise<boolean> {
   try {
-    // Parse payment proof (format: signature:timestamp:amount)
-    const parts = paymentProof.split(':');
-    
-    if (parts.length < 3) {
-      // For development/testing, accept simple payment proofs
-      if (process.env.NODE_ENV === 'development') {
-        console.log('⚠️  Development mode: accepting test payment');
-        return true;
+    // Try to parse as JSON first (new format)
+    let payment: any;
+    try {
+      payment = JSON.parse(paymentProof);
+    } catch {
+      // Fall back to colon-separated format
+      const parts = paymentProof.split(':');
+      if (parts.length < 3) {
+        // For development/testing, accept simple payment proofs
+        if (process.env.NODE_ENV === 'development') {
+          console.log('⚠️  Development mode: accepting test payment');
+          return true;
+        }
+        return false;
       }
+      const [signature, timestamp, amount] = parts;
+      payment = { signature, nonce: timestamp, amount };
+    }
+
+    // Verify nonce/timestamp is recent (within 5 minutes)
+    const now = Date.now();
+    const paymentTime = parseInt(payment.nonce);
+    if (now - paymentTime > 5 * 60 * 1000) {
+      console.log('⚠️  Payment proof expired');
       return false;
     }
     
-    const [signature, timestamp, amount] = parts;
-    
-    // Verify timestamp is recent (within 5 minutes)
-    const now = Date.now();
-    const paymentTime = parseInt(timestamp);
-    if (now - paymentTime > 5 * 60 * 1000) {
-      throw new Error('Payment proof expired');
-    }
-    
     // Verify amount matches requirement
-    if (parseFloat(amount) < parseFloat(options.maxAmountRequired)) {
-      throw new Error('Insufficient payment amount');
+    if (parseFloat(payment.amount) < parseFloat(options.maxAmountRequired)) {
+      console.log('⚠️  Insufficient payment amount');
+      return false;
     }
     
     // Verify signature
-    const message = `${timestamp}:${amount}:${options.description}`;
-    const messageHash = ethers.hashMessage(message);
-    const recoveredAddress = ethers.recoverAddress(messageHash, signature);
+    const message = ethers.solidityPackedKeccak256(
+      ['address', 'uint256', 'string'],
+      [payment.recipient, ethers.parseUnits(payment.amount, 6), payment.nonce]
+    );
     
-    // In production, verify the address has made the payment on-chain
-    // For now, just verify the signature is valid
-    if (recoveredAddress) {
-      console.log(`Payment from: ${recoveredAddress}`);
+    const recoveredAddress = ethers.recoverAddress(message, payment.signature);
+    
+    // Verify the recovered address matches the sender
+    if (recoveredAddress.toLowerCase() === payment.sender.toLowerCase()) {
+      console.log(`✅ Payment verified from: ${recoveredAddress}`);
       return true;
     }
     
+    console.log('⚠️  Signature verification failed');
     return false;
-  } catch (error) {
-    console.error('Payment verification error:', error);
+  } catch (error: any) {
+    console.error('❌ Payment verification error:', error.message);
     return false;
   }
 }
