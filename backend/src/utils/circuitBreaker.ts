@@ -117,4 +117,9 @@ export const circuitBreakers = {
   coingecko: new CircuitBreaker('CoinGecko API'),
   ruby: new CircuitBreaker('Ruby Exchange API'),
   chirper: new CircuitBreaker('Chirper API'),
+  jokes: new CircuitBreaker('Jokes API'),
+  bored: new CircuitBreaker('Bored API'),
+  agify: new CircuitBreaker('Agify API'),
+  genderize: new CircuitBreaker('Genderize API'),
+  nationalize: new CircuitBreaker('Nationalize API'),
 };
