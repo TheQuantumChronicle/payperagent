@@ -14,7 +14,6 @@ dotenv.config({ path: path.join(__dirname, 'backend', '.env') });
 const API_URL = process.env.API_URL || 'http://localhost:3000';
 const PRIVATE_KEY = process.env.TEST_PAYMENT_PRIVATE_KEY;
 const SKALE_RPC = process.env.SKALE_RPC_URL || 'https://testnet.skalenodes.com/v1/lanky-ill-funny-testnet';
-const FACILITATOR_URL = process.env.FACILITATOR_URL || 'https://facilitator.dirtroad.dev';
 
 interface TestResult {
   endpoint: string;
