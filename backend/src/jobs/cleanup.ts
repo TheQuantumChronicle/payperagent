@@ -19,8 +19,8 @@ export function startCleanupJobs(): void {
       if (total > 0) {
         console.log(`🧹 Cache cleanup: removed ${total} expired entries`);
       }
-    } catch (error) {
-      console.error('❌ Cache cleanup failed:', error);
+    } catch (error: any) {
+      console.warn('⚠️  Cache cleanup failed:', error.message);
     }
   });
 
@@ -29,8 +29,8 @@ export function startCleanupJobs(): void {
     try {
       const deleted = await dbAnalytics.cleanup(30); // Keep 30 days
       console.log(`🧹 Daily cleanup: removed ${deleted} old analytics records`);
-    } catch (error) {
-      console.error('❌ Analytics cleanup failed:', error);
+    } catch (error: any) {
+      console.warn('⚠️  Analytics cleanup failed:', error.message);
     }
   });
 
@@ -46,8 +46,8 @@ export function startCleanupJobs(): void {
       await query('VACUUM ANALYZE');
       
       console.log('✅ Weekly database maintenance completed');
-    } catch (error) {
-      console.error('❌ Database maintenance failed:', error);
+    } catch (error: any) {
+      console.warn('⚠️  Database maintenance failed:', error.message);
     }
   });
 
