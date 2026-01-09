@@ -86,14 +86,6 @@ const news = new PayPerAgentTool({
 });
 ```
 
-### AI Search Tool (Perplexity)
-```typescript
-const search = new PayPerAgentTool({
-  name: 'ai_search',
-  description: 'Search with AI',
-  endpoint: '/api/perplexity',
-});
-```
 
 ### SKALE Gaming Tool
 ```typescript

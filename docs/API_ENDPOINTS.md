@@ -258,49 +258,6 @@ curl -H "X-PAYMENT: <signature>" "https://payperagent.xyz/api/utilities/random/c
 
 ---
 
-## 🤖 Premium AI APIs
-
-### 19. Perplexity AI Search
-**Endpoint:** `POST /api/perplexity`  
-**Price:** 0.010 USDC  
-**Body:**
-```json
-{
-  "query": "What is SKALE Network?",
-  "model": "llama-3.1-sonar-small-128k-online",
-  "max_tokens": 1000
-}
-```
-
-**Example:**
-```bash
-curl -X POST -H "X-PAYMENT: <signature>" -H "Content-Type: application/json" \
-  -d '{"query":"What is SKALE Network?"}' \
-  "https://payperagent.xyz/api/perplexity"
-```
-
-### 20. XAI/Grok
-**Endpoint:** `POST /api/xai`  
-**Price:** 0.008 USDC  
-**Body:**
-```json
-{
-  "prompt": "Explain quantum computing",
-  "model": "grok-beta",
-  "max_tokens": 1000,
-  "temperature": 0.7
-}
-```
-
-**Example:**
-```bash
-curl -X POST -H "X-PAYMENT: <signature>" -H "Content-Type: application/json" \
-  -d '{"prompt":"Explain quantum computing"}' \
-  "https://payperagent.xyz/api/xai"
-```
-
----
-
 ## 📊 System APIs
 
 ### Health Check
@@ -359,11 +316,9 @@ curl "https://payperagent.xyz/cache/stats"
 | HackerNews | 0.001 | Tech News |
 | Random Dog | 0.0005 | Fun |
 | Random Cat | 0.0005 | Fun |
-| **Perplexity** | 0.010 | AI Premium |
-| **XAI/Grok** | 0.008 | AI Premium |
 
-**Total APIs:** 16 services (29 endpoints)  
-**Price Range:** 0.0005 - 0.010 USDC  
+**Total APIs:** 14 FREE services (27 endpoints)  
+**Price Range:** 0.0005 - 0.005 USDC  
 **Average Price:** 0.002 USDC
 
 ---

@@ -46,7 +46,7 @@ Traditional API:          PayPerAgent:
 **What Was Built:**
 - Full-stack payment gateway (Backend + Frontend)
 - x402 protocol implementation with cryptographic verification
-- 10+ API integrations (Weather, Crypto, News, Wikipedia, CoinGecko, Perplexity, Ruby.Exchange, Chirper.ai, Gaming)
+- 14 FREE API integrations (Weather, Crypto, News, Wikipedia, CoinGecko, Reddit, GitHub, Exchange, Utilities, Ruby.Exchange, Chirper.ai, Gaming)
 - SKALE Network integration (zero gas fees)
 - PostgreSQL analytics and caching
 - WebSocket real-time updates
@@ -127,7 +127,7 @@ const data = await client.getWeather({ city: 'London' });
 
 ## ✨ Features
 
-### ✅ **29 Live Endpoints Across 16 APIs** (Production Ready!)
+### ✅ **27 Live Endpoints Across 14 FREE APIs** (Production Ready!)
 
 #### **Original APIs**
 - 🌤️ **Weather** - OpenWeatherMap data (0.001 USDC)
@@ -146,10 +146,6 @@ const data = await client.getWeather({ city: 'London' });
 - 🔥 **HackerNews** - Top stories (0.001 USDC)
 - 🐕 **Random Dog** - Dog images (0.0005 USDC)
 - 🐱 **Random Cat** - Cat images (0.0005 USDC)
-
-#### **Premium AI APIs** (Require API Key)
-- 🔍 **Perplexity** - AI web search (0.010 USDC)
-- 🤖 **XAI/Grok** - xAI assistant (0.008 USDC)
 
 #### **🔥 SKALE Ecosystem Integrations** (NEW!)
 - 💱 **Ruby.Exchange** - DEX prices, liquidity, swap quotes (0.001-0.002 USDC)
@@ -196,10 +192,9 @@ const data = await client.getWeather({ city: 'London' });
 - **Payments:** x402 protocol via @faremeter/middleware
 - **Database:** PostgreSQL with connection pooling
 - **Caching:** Dual-layer (Memory + PostgreSQL) with intelligent TTL optimization
-- **APIs:** 29 endpoints across 16 services
-  - 3 Original APIs
-  - 11 Free APIs (no auth)
-  - 2 Premium AI APIs
+- **APIs:** 27 endpoints across 14 FREE services
+  - 3 Original APIs (Weather, Crypto, News)
+  - 11 Free APIs (no auth required)
   - 13 SKALE Ecosystem endpoints (Ruby.Exchange, Chirper.ai, Gaming)
 - **Batch System:** Volume discounts (10-30% off)
 - **Reputation System:** 5-tier loyalty program (Bronze to Diamond)

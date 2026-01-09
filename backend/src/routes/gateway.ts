@@ -8,8 +8,6 @@ import { redditRouter } from './apis/reddit';
 import { githubRouter } from './apis/github';
 import { exchangeRouter } from './apis/exchange';
 import { utilitiesRouter } from './apis/utilities';
-import { perplexityRouter } from './apis/perplexity';
-import { xaiRouter } from './apis/xai';
 import { rubyRouter } from './apis/ruby';
 import { chirperRouter } from './apis/chirper';
 import { gamingRouter } from './apis/gaming';
@@ -30,10 +28,6 @@ gatewayRouter.use('/reddit', redditRouter);
 gatewayRouter.use('/github', githubRouter);
 gatewayRouter.use('/exchange', exchangeRouter);
 gatewayRouter.use('/utilities', utilitiesRouter);
-
-// Premium APIs (Require API Key)
-gatewayRouter.use('/perplexity', perplexityRouter);
-gatewayRouter.use('/xai', xaiRouter);
 
 // SKALE Ecosystem Integrations
 gatewayRouter.use('/ruby', rubyRouter);
@@ -104,8 +98,8 @@ gatewayRouter.get('/', (_req, res) => {
       },
     ],
     stats: {
-      totalEndpoints: 29,
-      totalAPIs: 16,
+      totalEndpoints: 27,
+      totalAPIs: 14,
       skaleEcosystemAPIs: 13,
       averageResponseTime: '250ms',
       uptime: '99.9%',

@@ -93,8 +93,6 @@ systemRouter.get('/environment', (_req, res) => {
         database: !!process.env.DATABASE_URL,
         openweather: !!process.env.OPENWEATHER_API_KEY,
         newsapi: !!process.env.NEWS_API_KEY,
-        perplexity: !!process.env.PERPLEXITY_API_KEY,
-        xai: !!process.env.XAI_API_KEY,
       },
     },
   });

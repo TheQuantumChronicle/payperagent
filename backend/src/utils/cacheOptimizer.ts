@@ -47,17 +47,6 @@ const cacheConfigs: Record<string, CacheConfig> = {
     maxTTL: 600000,    // 10 minutes
     defaultTTL: 180000, // 3 minutes
   },
-  // AI APIs - moderate TTL
-  perplexity: {
-    minTTL: 300000,    // 5 minutes
-    maxTTL: 3600000,   // 1 hour
-    defaultTTL: 600000, // 10 minutes
-  },
-  xai: {
-    minTTL: 300000,    // 5 minutes
-    maxTTL: 3600000,   // 1 hour
-    defaultTTL: 600000, // 10 minutes
-  },
 };
 
 export function getOptimalTTL(service: string): number {

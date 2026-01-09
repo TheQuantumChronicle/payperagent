@@ -131,8 +131,6 @@ server.listen(PORT, async () => {
   PrettyLogger.info('GET  /api/weather                 Weather data (0.001 USDC)');
   PrettyLogger.info('GET  /api/crypto                  Crypto prices (0.002 USDC)');
   PrettyLogger.info('GET  /api/news                    News articles (0.005 USDC)');
-  PrettyLogger.info('GET  /api/perplexity              AI search (0.010 USDC)');
-  PrettyLogger.info('GET  /api/xai                     Grok AI (0.008 USDC)');
   PrettyLogger.info('GET  /analytics/usage             Usage statistics');
   PrettyLogger.info('GET  /cache/stats                 Cache statistics');
   PrettyLogger.info('GET  /system/circuit-breakers     Circuit breaker status');

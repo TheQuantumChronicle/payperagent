@@ -115,8 +115,6 @@ export const circuitBreakers = {
   binance: new CircuitBreaker('Binance API'),
   newsapi: new CircuitBreaker('NewsAPI'),
   coingecko: new CircuitBreaker('CoinGecko API'),
-  perplexity: new CircuitBreaker('Perplexity API', { timeout: 30000 }),
-  xai: new CircuitBreaker('XAI API', { timeout: 30000 }),
   ruby: new CircuitBreaker('Ruby Exchange API'),
   chirper: new CircuitBreaker('Chirper API'),
 };

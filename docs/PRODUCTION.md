@@ -50,11 +50,9 @@ FACILITATOR_URL=https://facilitator.dirtroad.dev
 PAYMENT_WALLET_PRIVATE_KEY=<your_key>
 PAYMENT_TOKEN_ADDRESS=0x85889c8c714505E0c94b30fcfcF64fE3Ac8FCb20
 
-# API Keys
+# API Keys (Only for original 3 APIs)
 OPENWEATHER_API_KEY=<your_key>
 NEWS_API_KEY=<your_key>
-PERPLEXITY_API_KEY=<your_key>
-XAI_API_KEY=<your_key>
 
 # Domain
 FRONTEND_URL=https://payperagent.xyz

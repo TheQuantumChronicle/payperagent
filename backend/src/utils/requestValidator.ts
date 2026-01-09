@@ -140,48 +140,4 @@ export const commonSchemas = {
       max: 100,
     },
   },
-  perplexity: {
-    query: {
-      type: 'string' as const,
-      required: true,
-      min: 1,
-      max: 2000,
-    },
-    model: {
-      type: 'string' as const,
-      required: false,
-      enum: ['sonar', 'sonar-pro', 'sonar-reasoning'],
-    },
-    max_tokens: {
-      type: 'number' as const,
-      required: false,
-      min: 1,
-      max: 4000,
-    },
-  },
-  xai: {
-    prompt: {
-      type: 'string' as const,
-      required: true,
-      min: 1,
-      max: 2000,
-    },
-    model: {
-      type: 'string' as const,
-      required: false,
-      enum: ['grok-beta', 'grok-2'],
-    },
-    max_tokens: {
-      type: 'number' as const,
-      required: false,
-      min: 1,
-      max: 4000,
-    },
-    temperature: {
-      type: 'number' as const,
-      required: false,
-      min: 0,
-      max: 2,
-    },
-  },
 };

@@ -70,17 +70,6 @@ export const API_PRICING = {
     currency: 'USDC',
     description: 'Random cat images',
   },
-  // Premium APIs (Require API Key)
-  perplexity: {
-    amount: '0.010',
-    currency: 'USDC',
-    description: 'AI-powered web search with Perplexity',
-  },
-  xai: {
-    amount: '0.008',
-    currency: 'USDC',
-    description: 'Grok AI assistant by xAI',
-  },
   // SKALE Ecosystem Integrations
   // Ruby.Exchange (DEX)
   ruby_price: {
